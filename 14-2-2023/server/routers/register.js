@@ -20,15 +20,18 @@ router.post("/", async (req, res) => {
             Joi.string().min(6).max(200).required(),
     });
 
+
+
     const { error } = schema.validate(req.body);
 
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+        return res.status(400).send(error.details[0].message);
 
+    }
     let user = await User.findOne({ email: req.body.email });
-    if (user) return res.status(400).send("User already exists...");
+    if (user) return res.status(400).send("Tài khoản người dùng đã tồn tại!");
 
     const { name, email, password } = req.body;
-    console.log("h", user)
     user = new User({ name, email, password });
 
     const salt = await bcrypt.genSalt(10);

@@ -21,7 +21,7 @@ app.get("/products", (req, res) => {
   res.send(products);
 });
 mongoose.set('strictQuery', true);
-const uri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/acc';
+const uri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/authen';
 const port = 5000;
 
 app.listen(port, () => {
