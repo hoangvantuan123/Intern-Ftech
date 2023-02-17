@@ -23,8 +23,27 @@ export const registerUser = createAsyncThunk(
     "auth/registerUser",
     async (user, { rejectWithValue }) => {
         try {
+            /// Thực hiện một yêu cầu http với 
             const token = await axios.post(`${urlAPI}/register`, {
                 name: user.name,
+                email: user.email,
+                password: user.password
+            });
+            // Thêm mới dữ liệu vào  localStorage bằng setItem  
+            localStorage.setItem("token", token.data);
+            return token.data;
+        } catch (error) {
+            console.log(error.response.data);
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+export const loginUser = createAsyncThunk(
+    "auth/loginUser",
+    async (user, { rejectWithValue }) => {
+        try {
+            /// Thực hiện một yêu cầu http với 
+            const token = await axios.post(`${urlAPI}/login`, {
                 email: user.email,
                 password: user.password
             });
@@ -73,13 +92,20 @@ const authSlice = createSlice({
             }
         }
     },
+
+    /* 
+        Giống như reducers, extraReducers 
+    */
     extraReducers: (builder) => {
+
+        // Đối với register
         // Khi chua giai quyet
+        // Ở trạng thái Pending : xử lý trạng thái tải của asyncThunk 
         builder.addCase(registerUser.pending, (state, action) => {
             return { ...state, registerStatus: "pending" };
         });
-
         // Khi hoang thanh
+        // Ở trạng thái fulfilled : xử lý trạng thái thành công.
         builder.addCase(registerUser.fulfilled, (state, action) => {
             if (action.payload) {
                 const user = jwtDecode(action.payload);
@@ -93,7 +119,8 @@ const authSlice = createSlice({
                 }
             } else return state;
         });
-        // Khi loi bo qua
+        // Khi bị từ chối.
+        //ở trạng thái rejected : xử lý trạng thái không thành công
         builder.addCase(registerUser.rejected, (state, action) => {
             return {
                 state,
@@ -101,6 +128,35 @@ const authSlice = createSlice({
                 registerError: action.payload,
             }
         });
+        /* ________________________________________________________________________________________________________ */
+        ////// Đôi với login
+        builder.addCase(loginUser.pending, (state, action) => {
+            return { ...state, registerStatus: "pending" };
+        });
+
+        // Khi hoang thanh
+        builder.addCase(loginUser.fulfilled, (state, action) => {
+            if (action.payload) {
+                const user = jwtDecode(action.payload);
+                return {
+                    ...state,
+                    token: action.payload,
+                    name: user.name,
+                    email: user.email,
+                    _id: user._id,
+                    loginUser: "SUCCESS"
+                }
+            } else return state;
+        });
+        // Khi bị từ chối.
+        builder.addCase(loginUser.rejected, (state, action) => {
+            return {
+                state,
+                loginStatus: "ERROR REJECTED",
+                loginError: action.payload,
+            }
+        });
+
     }
 
 })
@@ -118,3 +174,16 @@ Mục đích tạo ra các Slices :
 
     => từ đó khi một Slices đc tạo ra chúng ta có thể xuất các trình tạo hành động  Redux đã tạo  và hàm giảm tốc cho Slices đó.
 */
+
+
+/* 
+https://redux-toolkit.js.org/api/createSlice#extrareducers
+
+https://redux-toolkit.js.org/usage/usage-with-typescript#type-safety-with-extrareducers
+
+https://redux-toolkit.js.org/api/createAsyncThunk
+
+https://redux-toolkit.js.org/usage/usage-with-typescript#typing-builderaddmatcher
+
+https://redux-toolkit.js.org/api/createReducer#builderadddefaultcase
+ */
