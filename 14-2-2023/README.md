@@ -4,7 +4,7 @@
 Cấu trúc dự án gômg 2 phần 
 
 ## Client
-Technology:
+- Technology:
     - ReactJS
     - React-router-dom
     - React-redux
