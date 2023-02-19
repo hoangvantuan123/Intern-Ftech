@@ -33,6 +33,12 @@ Có 2 điểm cuổi để Đăng ký và Đăng nhập với tài khoản Authe
  
 **Home**
 ![](file/Group2.png)
+**Login**
+![](file/Group4.png)
+**Register**
+![](file/Group3.png)
+**me**
+![](file/Group1.png)
 
 
 
