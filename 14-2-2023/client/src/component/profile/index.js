@@ -1,11 +1,8 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
-import { useDispatch, useSelector } from 'react-redux'
-import { deepOrange, deepPurple } from '@mui/material/colors';
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-import { logOutUser } from '../../slices/authSlices';
-import NavBar from '../navbar';
-import Home from '../home';
+import {  useSelector } from 'react-redux'
+import { deepOrange } from '@mui/material/colors';
+
 export default function Profile() {
     /*    const dispatch = useDispatch(); */
     const auth = useSelector((state) => state.auth);
@@ -53,7 +50,14 @@ export default function Profile() {
                                         </a>
 
                                         <a
-                                            href="#"
+                                            href="/#"
+                                            className="block rounded-lg p-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                                            role="menuitem"
+                                        >
+                                            Item
+                                        </a>
+                                        <a
+                                            href="/#"
                                             className="block rounded-lg p-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                                             role="menuitem"
                                         >
@@ -61,15 +65,7 @@ export default function Profile() {
                                         </a>
 
                                         <a
-                                            href="#"
-                                            className="block rounded-lg p-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                            role="menuitem"
-                                        >
-                                            Item
-                                        </a>
-
-                                        <a
-                                            href="#"
+                                            href="/"
                                             className="block rounded-lg p-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                                             role="menuitem"
                                         > Item
@@ -83,7 +79,6 @@ export default function Profile() {
                                             Item
                                         </strong>
 
-
                                     </div>
                                 </div>
                             </div>
@@ -94,21 +89,21 @@ export default function Profile() {
                     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                         <a
                             className="block h-[300px] rounded-xl border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-                            href="/accountant"
+                            href="/"
                         >
 
                         </a>
 
                         <a
                             className="block rounded-xl h-[300px] border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-                            href="/accountant"
+                            href="/"
                         >
 
                         </a>
 
                         <a
                             className="block rounded-xl h-[300px] border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-                            href="/accountant"
+                            href="/"
                         >
 
 
@@ -116,20 +111,20 @@ export default function Profile() {
 
                         <a
                             className="block rounded-xl  h-[300px] border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-                            href="/accountant"
+                            href="/"
                         >
 
                         </a>
 
                         <a
                             className="block rounded-xl h-[300px] border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-                            href="/accountant"
+                            href="/"
                         >
                         </a>
 
                         <a
                             className="block rounded-xl h-[300px] border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-                            href="/accountant"
+                            href="/"
                         >
 
                         </a>

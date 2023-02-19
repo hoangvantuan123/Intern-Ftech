@@ -174,7 +174,7 @@ export default function Register() {
                             </div>
                             <div className="text-center lg:text-left">
                                 <p className="text-sm font-semibold mt-2 pt-1 mb-0">
-                                    Bạn đã có tài khoản?
+                                    Already a member yet?
                                     <a
                                         href="/login"
                                         className="relative font-medium text-indigo-600 before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-indigo-600 before:transition hover:before:scale-x-100"

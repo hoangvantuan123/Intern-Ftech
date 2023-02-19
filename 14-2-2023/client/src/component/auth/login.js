@@ -29,7 +29,7 @@ export default function Login() {
     };
     return (
         <div>
-    
+
             <div>
                 <section className="relative flex flex-wrap lg:h-screen lg:items-center">
                     <div className="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/3">
@@ -86,7 +86,7 @@ export default function Login() {
                             </div>
                             <div className="text-center lg:text-left">
                                 <p className="text-sm font-semibold mt-2 pt-1 mb-0">
-                                    Bạn chưa có tài khoản?
+                                    Not a member?
                                     <a
                                         href="/register"
                                         className="relative font-medium text-indigo-600 before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-indigo-600 before:transition hover:before:scale-x-100"
@@ -95,8 +95,6 @@ export default function Login() {
                             </div>
                         </form>
                     </div>
-
-
                 </section>
 
             </div>
