@@ -28,3 +28,11 @@ Có 2 điểm cuổi để Đăng ký và Đăng nhập với tài khoản Authe
 - /api/register: để đăng ký tài khoản người dùng.
 - /api/login: để đăng nhập tài khoản người dùng.
 
+
+### Giao diện trang web
+ 
+- Home
+[Home] (./file/Group2.png)
+
+
+
