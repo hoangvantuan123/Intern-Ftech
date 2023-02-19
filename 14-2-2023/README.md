@@ -32,7 +32,7 @@ Có 2 điểm cuổi để Đăng ký và Đăng nhập với tài khoản Authe
 ### Giao diện trang web
  
 - Home
-[Home] (./file/Group2.png)
+[Home] (file/Group2.png)
 
 
 
