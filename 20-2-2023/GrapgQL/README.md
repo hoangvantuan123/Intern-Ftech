@@ -7,7 +7,7 @@ GraphQL đây là một công nghệ hot nhất khi nói đến API phía Server
 - GraphQL làm cho việc tổng hợp dữ liệu từ nhiều nguồn dễ dàng hơn.
 - Sử dụng một type system để khai báo dữ liệu.
 
-`
+```
 const { request } = require('express');
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
@@ -130,4 +130,4 @@ const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`)
 })
-`
+```
