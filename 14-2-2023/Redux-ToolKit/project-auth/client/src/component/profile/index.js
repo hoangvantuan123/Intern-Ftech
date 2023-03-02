@@ -42,11 +42,11 @@ export default function Profile() {
                                         </span>
 
                                         <a
-                                            href="/#"
+                                            href="/"
                                             className="block rounded-lg p-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                                             role="menuitem"
                                         >
-                                            Item
+                                            Home
                                         </a>
 
                                         <a

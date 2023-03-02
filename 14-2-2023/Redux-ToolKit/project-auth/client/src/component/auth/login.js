@@ -8,20 +8,18 @@ export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const auth = useSelector((state) => state.auth);
-    console.log('auth', auth);
     useEffect(() => {
         if (auth._id) {
-            navigate("/")
+            navigate(`/me/${auth.name}`)
         }
-    }, [auth._id, navigate])
-
+    }, [auth._id, navigate]);
     const [user, setUser] = useState(
         {
             email: " ",
             password: ""
         }
     );
-    console.log('Test ', user);
+    //console.log('Test ', user);
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(user);

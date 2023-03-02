@@ -8,7 +8,6 @@ import Avatar from '@mui/material/Avatar';
 import { deepOrange, } from '@mui/material/colors';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import CustomizedMenus from './styledMenu';
-import { Button } from '@mui/material';
 
 export default function NavBar() {
 
@@ -67,7 +66,7 @@ export default function NavBar() {
                           <div className="my-2 divide-y divide-gray-100">
                             <div className="p-2">
                               <a
-                                href="/me"
+                                href={`/me/${auth.name}`} 
                                 className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                               >
                                 Profile
