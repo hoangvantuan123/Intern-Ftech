@@ -1,15 +1,18 @@
+const express = require("express");
 const AdminBro = require('admin-bro')
 const AdminBroExpress = require('admin-bro-expressjs')
 const AdminBroMongoose = require('admin-bro-mongoose')
-
+const path = require('path');
 const mongoose = require('mongoose');
-
+const app = express();
 //const mongooseDb = await mongoose.connect('mongodb://localhost:27017/test')
 
 
 AdminBro.registerAdapter(AdminBroMongoose)
+app.use(express.static(path.join(__dirname, "../public")));
 
 const adminBro = new AdminBro({
+
     databases: [mongoose],
     /* resources: [{
     }], */
@@ -17,7 +20,8 @@ const adminBro = new AdminBro({
     branding: {
         logo: '',
         companyName: 'Admin',
-    }
+    },
+  
 })
 
 

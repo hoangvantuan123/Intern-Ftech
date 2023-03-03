@@ -6,7 +6,6 @@ const login = require("./routers/login");
 const admin = require('./routers/admin');
 const userRouter = require('./routers/users')
 const app = express();
-const path = require('path'); 
 
 app.use(express.json());
 app.use(cors());
@@ -15,7 +14,6 @@ app.use("/api/register", register);
 app.use("/api/login", login);
 app.use("/admin", admin);
 app.use("/users" ,userRouter);
-app.use(express.static(path.join(__dirname, "./public")));
 app.get("/", (req, res) => {
   res.send("Welcome our to online shop API...");
 });
