@@ -103,7 +103,6 @@ export default function NavBar() {
                                   onClick={logOutClick}
                                 >
                                   <LogoutRoundedIcon />
-
                                   Sign Out
                                 </button>
                               </form>

@@ -9,7 +9,11 @@ const generateAuthToken = (user) => {
       email: user.email,
       user_id: user.user_id
     },
-    jwtSecretKey
+    jwtSecretKey,
+    {
+      // radom token moi 30s 
+      expiresIn: '30s'
+    }
   );
 
   return token;

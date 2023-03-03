@@ -6,7 +6,7 @@ import { deepOrange } from '@mui/material/colors';
 export default function Profile() {
     /*    const dispatch = useDispatch(); */
     const auth = useSelector((state) => state.auth);
-    console.log('me', auth);
+  //  console.log('me', auth);
     /*  log out */
 
     /*   const logOutClick = () => {

@@ -10,10 +10,7 @@ import Home from './component/home';
 import Profile from './component/profile';
 function App() {
   const auth = useSelector((state) => state.auth);
-  console.log('Appjs', auth)
-
-
- 
+  //console.log('Appjs', auth)
 
   return (
     <div className="App  ">
