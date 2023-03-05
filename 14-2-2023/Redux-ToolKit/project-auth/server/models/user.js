@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    
+
     name: {
         type: String,
         trim: true,
-        required: true,            
+        required: true,
         minLength: 3,
         maxLength: 30
     },
@@ -44,5 +44,13 @@ const UserSchema = new Schema({
 const User = mongoose.model("User", UserSchema);
 exports.User = User;
 
+/* 
+const userPost = new User({
+    name: 'Hoang',
+    email: 'tuantuanhoang@gmail.com',
+    password: '1234566778',
+});
+userPost.save();
+console.log(userPost); */
 
 

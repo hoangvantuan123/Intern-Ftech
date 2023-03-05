@@ -11,7 +11,7 @@ export default function Register() {
    // console.log('auth', auth);
     useEffect(() => {
         if (auth._id) {
-            navigate(`/me/${auth.name}`)
+            navigate(`/${auth.name}`)
         }
     }, [auth._id, navigate])
 

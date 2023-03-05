@@ -10,7 +10,7 @@ export default function Login() {
     const auth = useSelector((state) => state.auth);
     useEffect(() => {
         if (auth._id) {
-            navigate(`/me/${auth.name}`)
+            navigate(`/${auth.name}`)
         }
     }, [auth._id, navigate]);
     const [user, setUser] = useState(

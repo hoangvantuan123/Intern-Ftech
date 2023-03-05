@@ -14,11 +14,11 @@ import authReducer, { loadUser } from './slices/authSlices';
 */
 const store = configureStore({
   reducer: {
-    auth: authReducer
+    auth: authReducer,
   }
 })
 
-store.dispatch(loadUser(null))
+store.dispatch(loadUser(null));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 

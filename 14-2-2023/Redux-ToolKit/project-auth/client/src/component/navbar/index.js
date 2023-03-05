@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logOutUser } from '../../slices/authSlices';
-import { toast } from 'react-toastify'
 import Box from '@mui/material/Box';
 import Popper from '@mui/material/Popper';
 import Avatar from '@mui/material/Avatar';
@@ -49,7 +48,7 @@ export default function NavBar() {
               <a className="rounded-lg px-3 py-2" href="/"> Home </a>
             </li>
             <li><a className="rounded-lg px-3 py-2" href="/about"> About </a></li>
-            <li><a className="rounded-lg px-3 py-2" href="/#"> Blog </a></li>
+            <li><a className="rounded-lg px-3 py-2" href="/post"> Blog </a></li>
             <li><a className="rounded-lg px-3 py-2" href="/#"> Pages </a></li>
             <li><a className="rounded-lg px-3 py-2" href="/#"> Contact </a></li>
             <li>
@@ -66,7 +65,7 @@ export default function NavBar() {
                           <div className="my-2 divide-y divide-gray-100">
                             <div className="p-2">
                               <a
-                                href={`/me/${auth.name}`} 
+                                href={`/${auth.name}`} 
                                 className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                               >
                                 Profile

@@ -116,7 +116,7 @@ export default function CustomizedMenus() {
                     auth._id ? <>  <Box>
                         <Divider sx={{ my: 0.5 }} />
                         <MenuItem onClick={handleClose} disableRipple>
-                            <Link href={`/me/${auth.name}`}  sx={{ color: "#263238" }} underline="none">Profile</Link>
+                            <Link href={`/${auth.name}`}  sx={{ color: "#263238" }} underline="none">Profile</Link>
                         </MenuItem>
                         <MenuItem onClick={handleClose} disableRipple>
                             <Link href="/setting" sx={{ color: "#263238" }} underline="none">Setting</Link>
