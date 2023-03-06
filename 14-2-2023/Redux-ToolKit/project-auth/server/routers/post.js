@@ -34,13 +34,22 @@ router.get("/", (req, res) => {
         });
 });
 
-router.post('/', (req, res) => {
-    const post = new Post(req.body);
-    post.save((err) => {
-        if (err) throw err;
-        res.json({ message: 'Thêm bài viết mới thành công' });
-    });
-});
+router.post('/', (req, res, next) => {
+    req.post = new Post();
+    /* post.save()
+        .then(savedPost => {
+            // Trả về kết quả sau khi lưu bài đăng
+            res.json({ success: true, message: 'Bài đăng đã được tạo thành công!', posts: savedPost });
+        })
+        .catch(error => {
+            console.log(error);
+            res.json({ success: false, message: 'Có lỗi xảy ra khi lưu bài đăng!' });
+        }); */
+    next()
+}, savepostAndRedirect('new'))
+
+
+
 
 router.get("/:id", (req, res) => {
     Post.findById(req.params.id)
@@ -87,5 +96,18 @@ router.delete("/:id", (req, res) => {
             res.sendStatus(500);
         });
 });
+
+function savepostAndRedirect(path) {
+    return async (req, res) => {
+        let post = req.post
+        post.title = req.body.title
+        post.content = req.body.content
+        try {
+            post = await post.save()
+        } catch (e) {
+            res.render(`posts/${path}`, { post: post })
+        }
+    }
+}
 
 module.exports = router

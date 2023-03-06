@@ -11,7 +11,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-
 app.use("/api/register", register);
 app.use("/api/login", login);
 app.use("/admin", admin);
@@ -36,3 +35,6 @@ mongoose
   })
   .then(() => console.log("MongoDB connection established..."))
   .catch((error) => console.error("MongoDB connection failed:", error.message));
+
+
+  
