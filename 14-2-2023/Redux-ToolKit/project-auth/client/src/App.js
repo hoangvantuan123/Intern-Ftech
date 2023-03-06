@@ -11,7 +11,6 @@ import Post from './component/post'
 function App() {
   const auth = useSelector((state) => state.auth);
   //console.log('Appjs', auth)
-
   return (
     <div className="App  ">
       <Router>
