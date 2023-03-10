@@ -18,6 +18,7 @@ app.use("/admin", admin);
 app.use("/api/users", userRouter);
 app.use("/api/posts", postRouter);
 
+
 app.get("/", (req, res) => {
   res.send("Welcome our to online shop API...");
 });

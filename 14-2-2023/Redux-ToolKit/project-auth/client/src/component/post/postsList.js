@@ -36,6 +36,7 @@ export default function PostsList() {
                     <li key={post._id} className="block rounded-xl border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring">
                         <h3>{post.title}</h3>
                         <p>{post.content}</p>
+                        <p>{post.category}</p>
                         <button onClick={() => handleEditPost(post._id)}>Chỉnh sửa</button>
                     </li>
                 ))}

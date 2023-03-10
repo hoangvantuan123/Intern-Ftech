@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { urlAPI, urlAPIID } from "./api";
 import axios from 'axios';
 import produce from 'immer';
+
+
 export const fetchPosts = createAsyncThunk(
     'post/fetchPosts',
     async () => {
@@ -26,7 +28,6 @@ export const addPost = createAsyncThunk(
         });
 
         const result = await response.json();
-        console.log('testt', result);
         return result;
     });
 

@@ -10,6 +10,7 @@ export default function Post() {
     const [showForm, setShowForm] = useState(false);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [category, setCategory] = useState('');
 
     const { id } = useParams();
     const post = posts.find((post) => post._id === id);
@@ -25,16 +26,18 @@ export default function Post() {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (post) {
-            dispatch(editPost({ id: post._id, title, content }));
+            dispatch(editPost({ id: post._id, title, content , category}));
         } else {
             const newBlog = {
                 title,
-                content
+                content,
+                category
             };
             dispatch(addPost(newBlog));
             setShowForm(false);
             setTitle('');
             setContent('');
+            setCategory('');
         }
 
 
@@ -58,6 +61,8 @@ export default function Post() {
                     <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
                 </label>
                 <label> Content: <textarea value={content} onChange={(e) => setContent(e.target.value)} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                </label>
+                <label> Dscription: <textarea value={category} onChange={(e) => setCategory(e.target.value)} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
                 </label>
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">{post ? 'Cập nhật bài đăng' : 'Đăng bài'}</button>
                 <button type="button" onClick={() => setShowForm(false)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Cancel </button>

@@ -49,7 +49,7 @@ export default function NavBar() {
             </li>
             <li><a className="rounded-lg px-3 py-2" href="/posts/all"> Posts List  </a></li>
             <li><a className="rounded-lg px-3 py-2" href="/posts/new"> Post </a></li>
-            <li><a className="rounded-lg px-3 py-2" href="/posts/:id"> Edit </a></li>
+            <li><a className="rounded-lg px-3 py-2" href="/"> A </a></li>
             <li><a className="rounded-lg px-3 py-2" href="/#"> Contact </a></li>
             <li>
               <div>

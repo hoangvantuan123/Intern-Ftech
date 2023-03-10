@@ -20,7 +20,6 @@ const adminBro = new AdminBro({
 
 })
 
-
 const ADMIN = {
     email: process.env.ADMIN_EMAIL || 'admin@example.com',
     password: process.env.ADMIN_PASSWORD || 'admin',
