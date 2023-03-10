@@ -34,38 +34,38 @@ router.get("/", (req, res) => {
         });
 });
 
-router.post('/', (req, res, next) => {
-    req.post = new Post();
-    /* post.save()
-        .then(savedPost => {
-            // Trả về kết quả sau khi lưu bài đăng
-            res.json({ success: true, message: 'Bài đăng đã được tạo thành công!', posts: savedPost });
-        })
-        .catch(error => {
-            console.log(error);
-            res.json({ success: false, message: 'Có lỗi xảy ra khi lưu bài đăng!' });
-        }); */
-    next()
-}, savepostAndRedirect('new'))
+router.post('/', async (req, res) => {
+    const post = new Post({
+        title: req.body.title,
+        content: req.body.content,
+        // Thêm các trường dữ liệu khác tương ứng với model
+    });
 
-
-
-
-router.get("/:id", (req, res) => {
-    Post.findById(req.params.id)
-        .populate("author")
-        .then(post => {
-            if (post) {
-                res.send(post);
-            } else {
-                res.sendStatus(404);
-            }
-        })
-        .catch(error => {
-            console.log(error);
-            res.sendStatus(500);
-        });
+    try {
+        const savedPost = await post.save(); // Lưu bài viết vào database
+        res.status(201).json({ success: true, message: 'Bài đăng đã được tạo thành công!', post: savedPost }); // Trả về kết quả sau khi lưu bài đăng
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: 'Có lỗi xảy ra khi lưu bài đăng!' });
+    }
 });
+
+
+
+router.get('/:id', async (req, res) => {
+    try {
+      const post = await Post.findById(req.params.id).populate('author');
+  
+      if (post) {
+        res.send(post);
+      } else {
+        res.sendStatus(404);
+      }
+    } catch (error) {
+      console.error(error);
+      res.sendStatus(500);
+    }
+  });
 
 router.put("/:id", (req, res) => {
     Post.findByIdAndUpdate(req.params.id, req.body)
@@ -97,17 +97,5 @@ router.delete("/:id", (req, res) => {
         });
 });
 
-function savepostAndRedirect(path) {
-    return async (req, res) => {
-        let post = req.post
-        post.title = req.body.title
-        post.content = req.body.content
-        try {
-            post = await post.save()
-        } catch (e) {
-            res.render(`posts/${path}`, { post: post })
-        }
-    }
-}
 
 module.exports = router

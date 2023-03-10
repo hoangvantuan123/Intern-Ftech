@@ -6,6 +6,7 @@ const login = require("./routers/login");
 const admin = require('./routers/admin');
 const userRouter = require('./routers/users');
 const postRouter = require('./routers/post');
+
 const app = express();
 
 app.use(express.json());

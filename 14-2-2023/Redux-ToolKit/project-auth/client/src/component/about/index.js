@@ -1,11 +1,10 @@
-import React from 'react'
-import NavBar from '../navbar'
+import React, { useState } from 'react';
 
 export default function About() {
+ 
   return (
     <div>
-      <NavBar />
-      About
+      about
     </div>
   )
 }

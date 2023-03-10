@@ -1,75 +1,71 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom";
-import { fetchBlogs, addBlog, editBlog, deleteBlog, updateBlog } from '../../slices/postSlices';
-import { createBrowserHistory } from 'history';
-
-const history = createBrowserHistory();
+import { useParams } from 'react-router-dom';
+import { fetchPosts, addPost, editPost } from '../../slices/postSlices';
 
 export default function Post() {
-    const post = useSelector((state) => state.post);
-    console.log('post', post);
+    const posts = useSelector((state) => state.posts);
+    console.log('post', posts);
     const dispatch = useDispatch();
-
     const [showForm, setShowForm] = useState(false);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
+    const { id } = useParams();
+    const post = posts.find((post) => post._id === id);
+    const status = useSelector((state) => state.posts.status);
+    const error = useSelector((state) => state.posts.error);
+
 
     useEffect(() => {
-        dispatch(fetchBlogs());
+        dispatch(fetchPosts());
     }, [dispatch])
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const newBlog = {
-            title,
-            content
-        };
-        dispatch(addBlog(newBlog));
-        setShowForm(false);
-        setTitle('');
-        setContent('')
-        history.push('/about');
+        if (post) {
+            dispatch(editPost({ id: post._id, title, content }));
+        } else {
+            const newBlog = {
+                title,
+                content
+            };
+            dispatch(addPost(newBlog));
+            setShowForm(false);
+            setTitle('');
+            setContent('');
+        }
+
+
 
     }
-    
-    const handleClick = () => {
-        history.push('/about');
-      };
 
     return (
         <div>
+
             <h2>Create a New Post</h2>
-            <ul>
-                 {post.map((blog) => (
-                    <li key={blog.id}>
-                        <span>
-                            {blog.title}
-                        </span>
 
-                    </li>
-                ))}
-                
+            {error && <div>{error}</div>}
+            {status === 'loading' && <div>Đang cập nhật bài đăng...</div>}
+            {status === 'succeeded' && <div>Cập nhật bài đăng thành công!</div>}
+            {status === 'failed' && <div>Cập nhật bài đăng thất bại.</div>}
+            {/*   <button onClick={() => setShowForm(true)} className="block w-[300px] rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white">Add Blog</button>
+            {showForm && ( */}
+            <form onSubmit={handleSubmit} className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+                <label>
+                    Title:
+                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                </label>
+                <label> Content: <textarea value={content} onChange={(e) => setContent(e.target.value)} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                </label>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">{post ? 'Cập nhật bài đăng' : 'Đăng bài'}</button>
+                <button type="button" onClick={() => setShowForm(false)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Cancel </button>
+            </form>
 
-            </ul >
+            {/* )} */}
 
 
-            <button onClick={() => setShowForm(true)} className="block w-[300px] rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white">Add Blog</button>
-            {showForm && (
-                <form onSubmit={handleSubmit} className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-                    <label>
-                        Title:
-                        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-                    </label>
-                    <label> Content: <textarea value={content} onChange={(e) => setContent(e.target.value)} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-                    </label>
-                    <button   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">add </button>
-                    <button type="button" onClick={() => setShowForm(false)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Cancel </button>
-                </form>)}
-
-          
 
         </div >
     )

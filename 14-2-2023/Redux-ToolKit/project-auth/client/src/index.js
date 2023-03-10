@@ -5,23 +5,23 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import authReducer, { loadUser } from './slices/authSlices';
-import postReducer, { setBlogs } from './slices/postSlices';
+import postReduces, { setPosts } from './slices/postSlices';
 /*
   - configureStore()
   + có sẵn Redux DevTools
-  + có sẵn redux-thunk để thực hiện async actions 
+  + có sẵn redux-thunk để thực hiện async actions
 
 */
 
 const store = configureStore({
   reducer: {
-    post: postReducer,
+    posts: postReduces,
     auth: authReducer
-  },
+  }
 })
 
 store.dispatch(loadUser(null));
-store.dispatch(setBlogs());
+store.dispatch(setPosts())
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
@@ -32,4 +32,3 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
-

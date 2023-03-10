@@ -47,9 +47,9 @@ export default function NavBar() {
             <li className="hidden lg:block">
               <a className="rounded-lg px-3 py-2" href="/"> Home </a>
             </li>
-            <li><a className="rounded-lg px-3 py-2" href="/about"> About </a></li>
-            <li><a className="rounded-lg px-3 py-2" href="/post"> Blog </a></li>
-            <li><a className="rounded-lg px-3 py-2" href="/#"> Pages </a></li>
+            <li><a className="rounded-lg px-3 py-2" href="/posts/all"> Posts List  </a></li>
+            <li><a className="rounded-lg px-3 py-2" href="/posts/new"> Post </a></li>
+            <li><a className="rounded-lg px-3 py-2" href="/posts/:id"> Edit </a></li>
             <li><a className="rounded-lg px-3 py-2" href="/#"> Contact </a></li>
             <li>
               <div>
@@ -65,7 +65,7 @@ export default function NavBar() {
                           <div className="my-2 divide-y divide-gray-100">
                             <div className="p-2">
                               <a
-                                href={`/${auth.name}`} 
+                                href={`/${auth.name}`}
                                 className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                               >
                                 Profile
