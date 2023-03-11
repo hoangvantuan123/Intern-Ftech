@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { urlAPI, urlAPIID } from "./api";
 import axios from 'axios';
 import produce from 'immer';
-
+import lodash from 'lodash';
 
 export const fetchPosts = createAsyncThunk(
     'post/fetchPosts',
@@ -31,6 +31,19 @@ export const addPost = createAsyncThunk(
         return result;
     });
 
+export const fetchPostBySlug = createAsyncThunk(
+    'post/fetchPostBySlug',
+    async (slug, thunkAPI) => {
+        try {
+            const response = await axios.get(`${urlAPI}/posts/${slug}`);
+            return response.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data);
+        }
+    }
+);
+
+
 export const fetchPostById = createAsyncThunk(
     'post/fetchById',
     async (id) => {
@@ -38,6 +51,7 @@ export const fetchPostById = createAsyncThunk(
         return response.data;
     }
 );
+
 
 export const editPost = createAsyncThunk(
     'post/editPost',
@@ -67,7 +81,11 @@ export const deletePost = createAsyncThunk('post/deleteBlog', async (id) => {
 
 
 const initialState = [
-    { posts: [], status: 'idle', error: null },
+    {
+        posts: [],
+        status: 'idle',
+        error: null
+    },
 ]
 
 
@@ -79,7 +97,7 @@ const postSlice = createSlice({
             return action.payload;
         }
     },
-  
+
     extraReducers: (builder) => {
         builder
             .addCase(fetchPosts.fulfilled, (state, action) => {
@@ -100,8 +118,20 @@ const postSlice = createSlice({
                     draftState[action.payload.id] = action.payload;
                 })
             })
-    },
-    immer: true
+            /* --------------------- */
+
+            .addCase(fetchPostBySlug.fulfilled, (state, action) => {
+                return action.payload
+            })
+
+            /* ------------------------------- */
+            .addCase(deletePost.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.posts = state.posts.filter((post) => post.id !== action.payload.id);
+            })
+
+
+    }
 })
 
 export const { setPosts } = postSlice.actions

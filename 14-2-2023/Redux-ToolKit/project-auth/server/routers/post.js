@@ -38,7 +38,19 @@ router.get("/", (req, res) => {
         });
 });
 
+router.get('/:slug', async (req, res) => {
+    try {
+        const post = await Post.findOne({ slug: req.params.slug })
+        if (!post) {
+            throw new Error('Post not found')
+        }
 
+        res.json(post)
+    } catch (error) {
+        console.error(error)
+        res.status(500).send('Server error')
+    }
+})
 
 /* router.post('/', async (req, res, next) => {
     const post = new Post()
@@ -85,6 +97,9 @@ router.get('/:id', async (req, res) => {
         res.sendStatus(500);
     }
 });
+
+
+
 
 /* router.put("/:id", (req, res) => {
     Post.findByIdAndUpdate(req.params.id, req.body)

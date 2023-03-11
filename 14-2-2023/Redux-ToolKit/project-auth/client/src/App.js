@@ -9,6 +9,7 @@ import Home from './component/home';
 import Profile from './component/profile';
 import Post from './component/post'
 import PostsList from './component/post/postsList';
+import ShowPost from './component/post/showPost';
 function App() {
   const auth = useSelector((state) => state.auth);
   //console.log('Appjs', auth)
@@ -18,9 +19,10 @@ function App() {
         <Routes>
           <Route exact path='/' element={<Home />} ></Route>
           <Route exact path='/about' element={<About />} ></Route>
+          <Route exact path='/posts/:slug' element={<ShowPost />} ></Route>
           <Route exact path='/posts/all' element={<PostsList />} ></Route>
           <Route exact path='/posts/new' element={<Post />} ></Route>
-          <Route exact path='api/posts/:id' element={<Post />} ></Route>
+          <Route exact path='/api/posts/:id' element={<Post />} ></Route>
           <Route exact path={`/${auth.name}`} element={<Profile />} ></Route>
           <Route exact path='/login' element={<Login />}></Route>
           <Route exact path='/register' element={<Register />}></Route>
