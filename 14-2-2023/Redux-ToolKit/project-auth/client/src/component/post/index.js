@@ -11,7 +11,7 @@ export default function Post() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [category, setCategory] = useState('');
-
+    const [image, setImage] = useState('')
     const { id } = useParams();
     const post = posts.find((post) => post._id === id);
     const status = useSelector((state) => state.posts.status);
@@ -26,29 +26,39 @@ export default function Post() {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (post) {
-            dispatch(editPost({ id: post._id, title, content , category}));
+            dispatch(editPost(
+                {
+                    id: post._id,
+                    title,
+                    content,
+                    category,
+                    image_path: post.image_path  /// giữ nguyên đường dẫn ảnh cũ
+                }));
         } else {
             const newBlog = {
                 title,
                 content,
-                category
+                category,
+                image_path: image ? `/uploads/${image.name}` : '' // Sử dụng đường dẫn ảnh mới chỉ khi file đã được chọn
             };
             dispatch(addPost(newBlog));
             setShowForm(false);
             setTitle('');
             setContent('');
+            setImage('');
             setCategory('');
         }
 
 
 
     }
+    const handleImageChange = (event) => {
+        setImage(event.target.files[0]);
+    };
 
     return (
         <div>
-
             <h2>Create a New Post</h2>
-
             {error && <div>{error}</div>}
             {status === 'loading' && <div>Đang cập nhật bài đăng...</div>}
             {status === 'succeeded' && <div>Cập nhật bài đăng thành công!</div>}
@@ -63,6 +73,11 @@ export default function Post() {
                 <label> Content: <textarea value={content} onChange={(e) => setContent(e.target.value)} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
                 </label>
                 <label> Dscription: <textarea value={category} onChange={(e) => setCategory(e.target.value)} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                </label>
+                <br />
+                <label>
+                    Image:
+                    <input type="file" accept="image/*" onChange={handleImageChange} />
                 </label>
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">{post ? 'Cập nhật bài đăng' : 'Đăng bài'}</button>
                 <button type="button" onClick={() => setShowForm(false)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Cancel </button>

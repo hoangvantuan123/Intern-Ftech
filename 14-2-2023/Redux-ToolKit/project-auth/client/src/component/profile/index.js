@@ -1,17 +1,75 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
-import {  useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { deepOrange } from '@mui/material/colors';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import { Tabs, Tab, Typography, Box } from '@material-ui/core';
+import PostsList from '../post/postsList';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.paper,
+        display: 'flex',  // Đảm bảo các column hiển thị trên cùng một dòng
+        height: 224,
+        alignItems: 'flex-start',  // Các column hiển thị theo chiều dọc trên cùng một vị trí
+        justifyContent: 'flex-start',  // các column đặt ở bên trái
+    }
+
+}));
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ p: 3 }}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
+
 
 export default function Profile() {
+    const classes = useStyles();
     /*    const dispatch = useDispatch(); */
     const auth = useSelector((state) => state.auth);
-  //  console.log('me', auth);
+    //  console.log('me', auth);
     /*  log out */
 
     /*   const logOutClick = () => {
           dispatch(logOutUser(null))
       } */
+
+    /*  Tabs  */
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
     return (
         <div className=''>
             <div className="h-[300px] bg-gradient-to-r from-purple-500 to-pink-500  py-3 text-white mx-auto flex  items-center justify-between p-4 max-w-screen-2xl ">
@@ -41,37 +99,38 @@ export default function Profile() {
                                             {auth.email}
                                         </span>
 
-                                        <a
-                                            href="/"
-                                            className="block rounded-lg p-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                            role="menuitem"
-                                        >
-                                            Home
-                                        </a>
 
-                                        <a
-                                            href="/#"
-                                            className="block rounded-lg p-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                            role="menuitem"
-                                        >
-                                            Item
-                                        </a>
-                                        <a
-                                            href="/#"
-                                            className="block rounded-lg p-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                            role="menuitem"
-                                        >
-                                            Item
-                                        </a>
 
-                                        <a
-                                            href="/"
-                                            className="block rounded-lg p-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                            role="menuitem"
-                                        > Item
-                                        </a>
+                                        <Tabs
+                                            orientation="vertical"
+                                            value={value}
+                                            onChange={handleChange}
+                                            aria-label="Vertical tabs example"
+                                            className={classes.tabs}
+                                            TabIndicatorProps={{ style: { display: 'none' } }} // Xóa vị trí của TabIndicator
+                                        >
+
+                                            <Tab
+                                                className="block rounded-lg p-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                                                label={
+                                                    <span style={{ display: "inline-block", textAlign: "left", width: "100%" }} className="hover:text-gray-700">
+                                                        Blog
+                                                    </span>
+                                                }
+                                                {...a11yProps(0)}
+                                            />
+                                            <Tab
+                                                label={
+                                                    <span style={{ display: "inline-block", textAlign: "left", width: "100%" }}>
+                                                        Item Two
+                                                    </span>
+                                                }
+                                                {...a11yProps(1)}
+                                            />
+
+                                        </Tabs>
+
                                     </div>
-
                                     <div className="p-2">
                                         <strong
                                             className="block p-2 text-xs font-medium uppercase text-gray-400"
@@ -86,49 +145,12 @@ export default function Profile() {
                     </div>
                 </div>
                 <div className='relative  w-full sm:h-96 lg:h-full lg:w-[60%] p-2'>
-                    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-                        <a
-                            className="block h-[300px] rounded-xl border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-                            href="/"
-                        >
-
-                        </a>
-
-                        <a
-                            className="block rounded-xl h-[300px] border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-                            href="/"
-                        >
-
-                        </a>
-
-                        <a
-                            className="block rounded-xl h-[300px] border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-                            href="/"
-                        >
-
-
-                        </a>
-
-                        <a
-                            className="block rounded-xl  h-[300px] border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-                            href="/"
-                        >
-
-                        </a>
-
-                        <a
-                            className="block rounded-xl h-[300px] border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-                            href="/"
-                        >
-                        </a>
-
-                        <a
-                            className="block rounded-xl h-[300px] border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-                            href="/"
-                        >
-
-                        </a>
-                    </div>
+                    <TabPanel value={value} index={0}>
+                        <PostsList />
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                        Item Two
+                    </TabPanel>
                 </div>
             </section>
         </div>

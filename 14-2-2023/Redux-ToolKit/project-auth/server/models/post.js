@@ -18,6 +18,7 @@ const PostSchema = new Schema({
     },
     author_id:
     {
+        required: true,
         type: Schema.Types.ObjectId,
         ref: "User"
     },
@@ -48,10 +49,7 @@ const PostSchema = new Schema({
 
 PostSchema.pre('validate', function (next) {
 
-    this.slug = slugify(this.title, { lower: true, strict: true })
-
-
-
+    this.slug = slugify(this.title, { lower: true, strict: true });
     next();
 })
 const Post = mongoose.model("Post", PostSchema);

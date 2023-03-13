@@ -5,9 +5,13 @@ import { fetchPosts, deletePost } from '../../slices/postSlices';
 
 export default function PostsList() {
     const dispatch = useDispatch();
-    const posts = useSelector((state) => state.posts);
     const [selectedPostId, setSelectedPostId] = useState(null);
-
+    const token = localStorage.getItem('token');
+    const { _id } = JSON.parse(atob(token.split('.')[1]));
+    const posts = useSelector((state) => {
+        console.log(state); // check if state.posts exists
+        return state.posts.filter((post) => post.author_id === _id);
+    });
     useEffect(() => {
         dispatch(fetchPosts());
     }, [dispatch])
@@ -35,9 +39,8 @@ export default function PostsList() {
     if (!posts || !Array.isArray(posts)) {
         return <div>Loading...</div>;
     }
-
     return (
-        <div className='max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 m-auto'>
+        <div className='max-w-screen-xl px-4  sm:px-6 lg:px-8 m-auto'>
             <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3" >
                 {posts.map(post => (
                     <li key={post._id} className="block rounded-xl border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring">

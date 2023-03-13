@@ -19,6 +19,9 @@ export const fetchPosts = createAsyncThunk(
 export const addPost = createAsyncThunk(
     'post/addPost',
     async (blogData) => {
+        const token = localStorage.getItem('token');
+        const { _id } = JSON.parse(atob(token.split('.')[1]));
+        blogData.author_id = _id
         const response = await fetch(`${urlAPI}/posts`, {
             method: 'POST',
             headers: {
@@ -53,9 +56,12 @@ export const fetchPostById = createAsyncThunk(
 );
 
 
-export const editPost = createAsyncThunk(
+/* export const editPost = createAsyncThunk(
     'post/editPost',
     async (blogData) => {
+        const token = localStorage.getItem('token');
+        const { _id } = JSON.parse(atob(token.split('.')[1]));
+        blogData.author_id = _id;
         const response = await fetch(`${urlAPI}/posts/${blogData.id}`, {
             method: 'PUT',
             headers: {
@@ -68,7 +74,28 @@ export const editPost = createAsyncThunk(
     }
 );
 
+ */
 
+export const editPost = createAsyncThunk(
+    'post/editPost',
+    async (blogData) => {
+        const response = await fetch(`${urlAPI}/posts/${blogData.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(blogData),
+        });
+
+        if (!response.ok) {
+            const errorResData = await response.json();
+            throw new Error(errorResData.error.message);
+        }
+
+        const result = await response.json();
+        return result;
+    }
+);
 
 
 export const deletePost = createAsyncThunk('post/deleteBlog', async (id) => {
@@ -112,7 +139,6 @@ const postSlice = createSlice({
             /*----------------------------------------------- */
 
             /* --------------------------------------------- */
-
             .addCase(editPost.fulfilled, (state, action) => {
                 return produce(state, draftState => {
                     draftState[action.payload.id] = action.payload;
