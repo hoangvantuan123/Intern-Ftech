@@ -81,6 +81,7 @@ const upload = multer({ storage: storage });
 router.post('/', upload.single('image'), async (req, res) => {
     const post = new Post({
         title: req.body.title,
+        description: req.body.description,
         content: req.body.content,
         category: req.body.category,
         author_id: req.body.author_id,
@@ -141,12 +142,13 @@ router.get('/:id', async (req, res) => {
 }); */
 router.put('/:id', async (req, res) => {
     try {
-        const { title, content, category } = req.body;
+        const { title, description, content, category } = req.body;
         let post = await Post.findById(req.params.id);
         if (!post) {
             return res.status(404).send('Post not found')
         }
         post.title = title;
+        post.description = description;
         post.content = content;
         post.category = category;
         post.slug = slugify(title, { lower: true, strict: true });

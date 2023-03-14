@@ -112,7 +112,7 @@ const initialState = [
         posts: [],
         status: 'idle',
         error: null
-    },
+    }
 ]
 
 
@@ -134,30 +134,26 @@ const postSlice = createSlice({
                 state.push(action.payload);
             })
             .addCase(fetchPostById.fulfilled, (state, action) => {
-                return action.payload;
+                state.posts = action.payload;
+                state.status = 'succeeded';
             })
-            /*----------------------------------------------- */
-
-            /* --------------------------------------------- */
             .addCase(editPost.fulfilled, (state, action) => {
-                return produce(state, draftState => {
-                    draftState[action.payload.id] = action.payload;
-                })
+                return {
+                    ...state,
+                    [action.payload.id]: {
+                        ...state[action.payload.id],
+                        ...action.payload
+                    }
+                }
             })
-            /* --------------------- */
-
             .addCase(fetchPostBySlug.fulfilled, (state, action) => {
                 return action.payload
             })
-
-            /* ------------------------------- */
             .addCase(deletePost.fulfilled, (state, action) => {
-                state.status = 'succeeded';
                 state.posts = state.posts.filter((post) => post.id !== action.payload.id);
-            })
-
-
-    }
+            });
+    },
+    immer: true
 })
 
 export const { setPosts } = postSlice.actions

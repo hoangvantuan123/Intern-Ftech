@@ -1,5 +1,5 @@
 import React from 'react';
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -13,12 +13,20 @@ import postReduces, { setPosts } from './slices/postSlices';
 
 */
 
+const rootReducer = combineReducers({
+  posts: postReduces,
+  auth: authReducer
+})
+
 const store = configureStore({
+  reducer: rootReducer,
+})
+/* const store = configureStore({
   reducer: {
     posts: postReduces,
     auth: authReducer
   }
-})
+}) */
 
 store.dispatch(loadUser(null));
 store.dispatch(setPosts())

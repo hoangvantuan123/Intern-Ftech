@@ -47,10 +47,10 @@ export default function NavBar() {
             <li className="hidden lg:block">
               <a className="rounded-lg px-3 py-2" href="/"> Home </a>
             </li>
-            <li><a className="rounded-lg px-3 py-2" href="/posts/all"> Posts List  </a></li>
-            <li><a className="rounded-lg px-3 py-2" href="/posts/new"> Post </a></li>
-            <li><a className="rounded-lg px-3 py-2" href="/"> A </a></li>
-            <li><a className="rounded-lg px-3 py-2" href="/#"> Contact </a></li>
+            <li><a className="rounded-lg px-3 py-2" href="/blog"> Blog</a></li>
+            <li><a className="rounded-lg px-3 py-2" href="/#"> Item 1 </a></li>
+            <li><a className="rounded-lg px-3 py-2" href="/#"> Item 1 </a></li>
+            <li><a className="rounded-lg px-3 py-2" href="/#"> Item 1 </a></li>
             <li>
               <div>
                 {
