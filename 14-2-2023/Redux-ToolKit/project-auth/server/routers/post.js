@@ -1,13 +1,13 @@
-const { Router } = require('express')
-const paginate = require('../services/paginate.service')
-const { Post } = require('../models/post')
+const { Router } = require('express');
+const paginate = require('../services/paginate.service');
+const { Post } = require('../models/post');
 const md = require('marked');
-const slugify = require('slugify')
-const createDomPurify = require('dompurify')
+const slugify = require('slugify');
+const createDomPurify = require('dompurify');
 const { JSDOM } = require('jsdom')
-const dompurify = createDomPurify(new JSDOM().window)
+const dompurify = createDomPurify(new JSDOM().window);
 const multer = require('multer');
-const router = new Router()
+const router = new Router();
 
 
 
@@ -54,6 +54,7 @@ router.get('/:slug', async (req, res) => {
     }
 })
 
+
 /* 
     Post image_path
     Đoạn code sẽ đc  định nghĩa một object storage sử dụng cho thư viện multer trong Node.js.
@@ -65,11 +66,11 @@ Cụ thể, object storage được định nghĩa với hai thuộc tính:
 Tóm lại, object storage sẽ trả về thông tin về đường dẫn đến thư mục để lưu file và tên file mới được đặt. Các thông tin này sẽ được sử dụng trong quá trình xử lý các file được upload lên server
 */
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads');
+    destination: function (req, file, callback) {
+        callback(null, './uploads');
     },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname);
+    filename: function (req, file, callback) {
+        callback(null, file.fieldname + '-' + Date.now());
     }
 });
 
@@ -84,6 +85,7 @@ router.post('/', upload.single('image'), async (req, res) => {
         description: req.body.description,
         content: req.body.content,
         category: req.body.category,
+        image_path: req.body.image_path,
         author_id: req.body.author_id,
         slug: req.body.slug,
         sanitizedHtml: req.body.content,
@@ -91,10 +93,10 @@ router.post('/', upload.single('image'), async (req, res) => {
 
         // Thêm các trường dữ liệu khác tương ứng với model
     });
-    if (req.file) {
-        post.image_path = `/uploads/${req.file.filename}`;
-    }
     try {
+        if (req.file) {
+            post.image_path = `/uploads/${req.file.filename}`; // Cập nhật đường dẫn đến ảnh mới, đảm bảo có "/" ở đầu.
+        }
         const savedPost = await post.save(); // Lưu bài viết vào database
         res.status(201).json({ success: true, message: 'Bài đăng đã được tạo thành công!', post: savedPost }); // Trả về kết quả sau khi lưu bài đăng
     } catch (error) {
@@ -150,6 +152,7 @@ router.put('/:id', async (req, res) => {
         post.title = title;
         post.description = description;
         post.content = content;
+        post.image_path = image_path;
         post.category = category;
         post.slug = slugify(title, { lower: true, strict: true });
         await post.save();

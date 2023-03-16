@@ -63,7 +63,8 @@ export default function Profile() {
     /*   const logOutClick = () => {
           dispatch(logOutUser(null))
       } */
-
+    const images = useSelector((state) => state.images);
+    console.log('images', images);
     /*  Tabs  */
     const [value, setValue] = React.useState(0);
 
@@ -147,7 +148,7 @@ export default function Profile() {
                         </div>
                     </div>
                     <div className='relative  w-full sm:h-96 lg:h-full  lg:w-[65%] p-2'>
-                        <TabPanel value={value} index={0 } >
+                        <TabPanel value={value} index={0} >
                             <PostsList />
                         </TabPanel>
                         <TabPanel value={value} index={1}>

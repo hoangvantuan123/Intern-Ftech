@@ -6,7 +6,7 @@ const login = require("./routers/login");
 const admin = require('./routers/admin');
 const userRouter = require('./routers/users');
 const postRouter = require('./routers/post');
-
+const imageRouter = require('./routers/imagePost')
 const app = express();
 
 app.use(express.json());
@@ -17,6 +17,7 @@ app.use("/api/login", login);
 app.use("/admin", admin);
 app.use("/api/users", userRouter);
 app.use("/api/posts", postRouter);
+app.use("/api/images", imageRouter);
 
 
 app.get("/", (req, res) => {

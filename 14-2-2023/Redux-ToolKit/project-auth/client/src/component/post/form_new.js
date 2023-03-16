@@ -2,23 +2,33 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchPosts, addPost, editPost } from '../../slices/postSlices';
+import { fetchImages } from '../../slices/imageSlices';
 
 export default function FormNew() {
     const auth = useSelector((state) => state.auth);
     console.log('auth', auth)
     const posts = useSelector((state) => state.posts);
     console.log('post', posts);
+    const images = useSelector((state) => state.images);
+    console.log('images', images);
     const dispatch = useDispatch();
     const [showForm, setShowForm] = useState(false);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('')
     const [content, setContent] = useState('');
     const [category, setCategory] = useState('');
-    const [image, setImage] = useState('')
 
-
+    const [data, setData] = useState({
+        name: "",
+        image: "",
+    });
+    const handleChange = (name) => (e) => {
+        const value = name === "image" ? e.target.files[0] : e.target.value;
+        setData({ ...data, [name]: value });
+    };
     useEffect(() => {
         dispatch(fetchPosts());
+        dispatch(fetchImages());
     }, [dispatch])
 
     const handleSubmit = (event) => {
@@ -29,23 +39,35 @@ export default function FormNew() {
             description,
             content,
             category,
-            image_path: image ? `/uploads/${image.name}` : '' // Sử dụng đường dẫn ảnh mới chỉ khi file đã được chọn
         };
         dispatch(addPost(newBlog));
         setShowForm(false);
         setTitle('');
         setDescription('');
         setContent('');
-        setImage('');
         setCategory('');
 
         window.location.href = `/${auth.name}`;
 
     }
-    const handleImageChange = (event) => {
-        setImage(event.target.files[0]);
-    };
 
+    const handleSubmitImage = async () => {
+        try {
+            let formData = new FormData();
+            formData.append("image", data.image);
+            formData.append("name", data.name);
+
+            const res = await fetch(`http://127.0.0.1:5000/api/images`, {
+                method: "POST",
+                body: formData,
+            });
+            if (res.ok) {
+                setData({ name: "", image: "" });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
     return (
         <div>
             <h2>Create a New Post</h2>
@@ -78,8 +100,18 @@ export default function FormNew() {
                 <br />
                 <label>
                     Image:
-                    <input type="file" accept="image/*" onChange={handleImageChange} />
+                    <input
+                        className="form-control"
+                        type="file"
+                        accept="image/*"
+                        name="image"
+                        onChange={handleChange("image")}
+                    />
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={handleSubmitImage} >
+                        Submit
+                    </button>
                 </label>
+                <br />
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit"> Đăng bài</button>
                 <button type="button" onClick={() => setShowForm(false)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Cancel </button>
             </form>

@@ -4,7 +4,8 @@ const marked = require('marked');
 const slugify = require('slugify')
 const createDomPurify = require('dompurify')
 const { JSDOM } = require('jsdom')
-const dompurify = createDomPurify(new JSDOM().window)
+const dompurify = createDomPurify(new JSDOM().window);
+
 const PostSchema = new Schema({
     title:
     {
@@ -31,7 +32,7 @@ const PostSchema = new Schema({
     image_path:
     {
         type: String,
-        default: null
+        default: null,
     },
     created_at:
     {

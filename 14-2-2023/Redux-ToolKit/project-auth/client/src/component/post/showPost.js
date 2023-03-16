@@ -19,7 +19,7 @@ export default function ShowPost() {
       {posts.loading && <p>Loading post...</p>}
       {posts.error && <p>{posts.error}</p>}
       <>
-        {posts.image_path && <img src={posts.image_path} alt="Post image" />}
+        {posts.image_path && <img src={`${posts.image_path}`} alt="Post Image" />}
         <h1>{posts.title}</h1>
         <p>{posts.content}</p>
       </>

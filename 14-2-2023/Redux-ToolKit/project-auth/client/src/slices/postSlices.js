@@ -4,6 +4,7 @@ import axios from 'axios';
 import produce from 'immer';
 import lodash from 'lodash';
 
+
 export const fetchPosts = createAsyncThunk(
     'post/fetchPosts',
     async () => {
@@ -56,25 +57,6 @@ export const fetchPostById = createAsyncThunk(
 );
 
 
-/* export const editPost = createAsyncThunk(
-    'post/editPost',
-    async (blogData) => {
-        const token = localStorage.getItem('token');
-        const { _id } = JSON.parse(atob(token.split('.')[1]));
-        blogData.author_id = _id;
-        const response = await fetch(`${urlAPI}/posts/${blogData.id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': "application/json"
-            },
-            body: JSON.stringify(blogData)
-        });
-        const result = await response.json();
-        return result;
-    }
-);
-
- */
 
 export const editPost = createAsyncThunk(
     'post/editPost',

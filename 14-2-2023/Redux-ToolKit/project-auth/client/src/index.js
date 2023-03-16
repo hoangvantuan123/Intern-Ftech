@@ -6,6 +6,7 @@ import './index.css';
 import App from './App';
 import authReducer, { loadUser } from './slices/authSlices';
 import postReduces, { setPosts } from './slices/postSlices';
+import imageReduces, { setImages } from './slices/imageSlices';
 /*
   - configureStore()
   + có sẵn Redux DevTools
@@ -15,7 +16,8 @@ import postReduces, { setPosts } from './slices/postSlices';
 
 const rootReducer = combineReducers({
   posts: postReduces,
-  auth: authReducer
+  auth: authReducer,
+  images: imageReduces,
 })
 
 const store = configureStore({
@@ -29,7 +31,8 @@ const store = configureStore({
 }) */
 
 store.dispatch(loadUser(null));
-store.dispatch(setPosts())
+store.dispatch(setPosts());
+store.dispatch(setImages());
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
