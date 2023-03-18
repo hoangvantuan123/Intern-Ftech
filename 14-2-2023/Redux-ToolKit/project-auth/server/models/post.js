@@ -7,6 +7,15 @@ const { JSDOM } = require('jsdom')
 const dompurify = createDomPurify(new JSDOM().window);
 
 const PostSchema = new Schema({
+    name_image: {
+        type: String,
+    },
+    image_url: {
+        type: String,
+    },
+    cloudinary_id: {
+        type: String,
+    },
     title:
     {
         type: String,
@@ -29,11 +38,6 @@ const PostSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
-    image_path:
-    {
-        type: String,
-        default: null,
-    },
     created_at:
     {
         type: Date,
@@ -54,11 +58,30 @@ const PostSchema = new Schema({
     }
 });
 
-PostSchema.pre('validate', function (next) {
 
-    this.slug = slugify(this.title, { lower: true, strict: true });
-    next();
-})
+
+PostSchema.statics.uploadAndSaveImage = async function (postId, file) {
+    try {
+        const result = await cloudinary.uploader.upload(file.path);
+
+        const post = await this.findByIdAndUpdate(
+            postId,
+            {
+                name_image: file.name_image,
+                image_url: result.secure_url,
+                cloudinary_id: result.public_id,
+            },
+            { new: true }
+        );
+
+        return post;
+    } catch (error) {
+        console.error('Error uploading image to Cloudinary:', error);
+
+        // Throw error to be handled by the caller
+        throw new Error('Error uploading image to Cloudinary');
+    }
+};
 const Post = mongoose.model("Post", PostSchema);
 exports.Post = Post;
 

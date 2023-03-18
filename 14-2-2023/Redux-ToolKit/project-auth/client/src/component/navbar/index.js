@@ -26,6 +26,7 @@ export default function NavBar() {
 
   const logOutClick = () => {
     dispatch(logOutUser(null))
+    window.location.href = `/`;
   }
   return (
     <div>

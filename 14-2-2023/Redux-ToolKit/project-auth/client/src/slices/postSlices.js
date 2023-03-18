@@ -3,7 +3,7 @@ import { urlAPI, urlAPIID } from "./api";
 import axios from 'axios';
 import produce from 'immer';
 import lodash from 'lodash';
-
+import { Omit } from 'utility-types'; // import Omit từ package
 
 export const fetchPosts = createAsyncThunk(
     'post/fetchPosts',
@@ -19,21 +19,38 @@ export const fetchPosts = createAsyncThunk(
 
 export const addPost = createAsyncThunk(
     'post/addPost',
-    async (blogData) => {
-        const token = localStorage.getItem('token');
-        const { _id } = JSON.parse(atob(token.split('.')[1]));
-        blogData.author_id = _id
-        const response = await fetch(`${urlAPI}/posts`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': "application/json"
-            },
-            body: JSON.stringify(blogData)
-        });
+    async (postData, { getState }) => {
+        try {
+            const { auth } = getState();
+            const { title, content, description, category, image } = postData;
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('content', content);
+            formData.append('description', description);
+            formData.append('category', category);
+            formData.append('image', image);
+            formData.append('author_id', auth._id);
 
-        const result = await response.json();
-        return result;
-    });
+            const token = auth.token;
+            const response = await fetch(`${urlAPI}/posts`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            const result = await response.json();
+
+            return result;
+        } catch (error) {
+            // Xử lý các lỗi tại đây
+            throw error;
+        }
+    }
+);
+
+
 
 export const fetchPostBySlug = createAsyncThunk(
     'post/fetchPostBySlug',
@@ -58,7 +75,7 @@ export const fetchPostById = createAsyncThunk(
 
 
 
-export const editPost = createAsyncThunk(
+/* export const editPost = createAsyncThunk(
     'post/editPost',
     async (blogData) => {
         const response = await fetch(`${urlAPI}/posts/${blogData.id}`, {
@@ -77,8 +94,32 @@ export const editPost = createAsyncThunk(
         const result = await response.json();
         return result;
     }
-);
+); */
 
+export const editPost = createAsyncThunk(
+    'post/editPost',
+    async (formData, { rejectWithValue }) => {
+        try {
+            const {  title, description, content, category, image } = formData;
+
+            const postForm = new FormData();
+            postForm.append('title', title);
+            postForm.append('description', description);
+            postForm.append('content', content);
+            postForm.append('category', category);
+            if (image) {
+                postForm.append('image', image);
+            }
+
+            const response = await axios.put(`${urlAPI}/posts/${formData.id}`, postForm);
+
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            return rejectWithValue('Server error');
+        }
+    },
+);
 
 export const deletePost = createAsyncThunk('post/deleteBlog', async (id) => {
     const response = await fetch(`${urlAPI}/posts/${id}`, {

@@ -3,6 +3,7 @@ const cloudinary = require("../utils/cloudinary");
 const upload = require("../utils/multer");
 const { Image } = require("../models/imagePost");
 
+
 router.post("/", upload.single("image"), async (req, res) => {
     try {
         // Upload image to cloudinary
@@ -12,6 +13,7 @@ router.post("/", upload.single("image"), async (req, res) => {
             name_image: req.body.name_image,
             image_url: result.secure_url,
             cloudinary_id: result.public_id,
+            post_id: req.body.post_id,
             /*   post_id: req.body.post_id,
               author_id: req.body.author_id, */
         });
@@ -22,7 +24,6 @@ router.post("/", upload.single("image"), async (req, res) => {
         console.log(err);
     }
 });
-
 
 router.get('/', (req, res) => {
     Image.find()

@@ -17,29 +17,28 @@ export const fetchImages = createAsyncThunk(
         return images;
     }
 );
-
-/* export const addImage = createAsyncThunk(
+export const addImage = createAsyncThunk(
     "image/addImage",
-    async (imageData) => {
+    async (formData) => {
         const token = localStorage.getItem("token");
-        const { _id } = JSON.parse(atob(token.split('.'[1])));
-        imageData.author_id = _id
-        imageData.post_id = _id
-     
-        const response = await fetch(`${urlAPI}/images`, {
-            method: 'POST',
+        const { _id } = JSON.parse(atob(token.split('.')[1]));
+        formData.append("post_id", _id);
+
+        const response = await fetch(`${urlAPI}/posts`, {
+            method: "POST",
             headers: {
-                'Content-Type': "application/json"
+                Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify(imageData)
+            body: formData,
         });
 
         const result = await response.json();
         return result;
-
     }
 );
 
+
+/* 
 export const deleteImage = createAsyncThunk(
     "image/deleteImage",
     async (imageId) => {

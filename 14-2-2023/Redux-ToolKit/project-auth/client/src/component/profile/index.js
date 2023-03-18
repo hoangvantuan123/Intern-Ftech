@@ -1,12 +1,13 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { deepOrange } from '@mui/material/colors';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Tabs, Tab, Typography, Box } from '@material-ui/core';
 import PostsList from '../post/postsList';
 import NavBar from '../navbar';
+import {fetchImages} from '../../slices/imageSlices'
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -54,6 +55,7 @@ function a11yProps(index) {
 
 
 export default function Profile() {
+    const dispatch = useDispatch();
     const classes = useStyles();
     /*    const dispatch = useDispatch(); */
     const auth = useSelector((state) => state.auth);
@@ -71,6 +73,9 @@ export default function Profile() {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    useEffect(() => {
+        dispatch(fetchImages());
+    }, [dispatch])
     return (
         <div>
             <NavBar />

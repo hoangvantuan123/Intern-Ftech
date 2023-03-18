@@ -31,8 +31,8 @@ function PostListPage() {
                                 <a href={`/posts/${post.slug}`}>
                                     <img
                                         alt="Office"
-                                        src={`https://source.unsplash.com/random/800x600?sig=${post.id}`}
-                                        className="h-56 w-full object-cover"
+                                        src={post.image_url}
+                                        className="h-56 w-full object-cover rounded-xl"
                                     />
 
                                     <div className=" text-left p-4 sm:p-6">
@@ -40,7 +40,7 @@ function PostListPage() {
                                             <h3 className="text-lg font-medium text-gray-900">{post.title}</h3>
                                         </a>
 
-                                        <p className="mt-2 text-sm leading-relaxed text-gray-500 line-clamp-3">{post.content}</p>
+                                        <p className="mt-2 text-sm leading-relaxed text-gray-500 line-clamp-3">{post.description}</p>
                                         <span>{'# ' + post.category}</span>
                                         <br />
                                         <a

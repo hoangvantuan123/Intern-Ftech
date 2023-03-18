@@ -63,6 +63,11 @@ export default function PostsList() {
     }
     return (
         <div className='max-w-screen-xl px-4  sm:px-6 lg:px-8 m-auto'>
+            <div className="mb-5">
+                <a href={`/${auth.name}/posts/new`}>
+                    <button className="relative font-medium text-indigo-600 before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-indigo-600 before:transition hover:before:scale-x-100">Thêm mới bài viết</button>
+                </a>
+            </div>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 " >
                 {posts.map(post => (
                     <article key={post._id} className="block  rounded-xl border border-gray-100  shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring" >
@@ -120,8 +125,8 @@ export default function PostsList() {
                         < div className='p-2' >
                             <img
                                 alt="Office"
-                                // src={post.image_path}
-                                src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                                src={post.image_url}
+                               // src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
                                 className="h-56 w-full rounded-xl object-cover"
                             />
 
@@ -148,9 +153,7 @@ export default function PostsList() {
                 ))
                 }
             </div >
-            <a href={`/${auth.name}/posts/new`}>
-                <button className="relative font-medium text-indigo-600 before:absolute before:-bottom-1 before:h-0.5 before:w-full before:scale-x-0 before:bg-indigo-600 before:transition hover:before:scale-x-100">Thêm mới bài viết</button>
-            </a>
+
 
         </div >
     )

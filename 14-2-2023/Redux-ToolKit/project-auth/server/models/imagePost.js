@@ -10,6 +10,11 @@ const imageSchema = new Schema({
     cloudinary_id: {
         type: String,
     },
+    post_id: {
+        required: true,
+        type: Schema.Types.ObjectId,
+        ref: "Post"
+    },
    /*  post_id: {
         required: true,
         type: Schema.Types.ObjectId,
