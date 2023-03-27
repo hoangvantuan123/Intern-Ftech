@@ -51,7 +51,7 @@ export default function NavBar() {
             </li>
             <li><a className="rounded-lg px-3 py-2" href="/blog"> Blog</a></li>
             <li><a className="rounded-lg px-3 py-2" href="/chat"> Chat </a></li>
-            <li><a className="rounded-lg px-3 py-2" href="/#"> Item 1 </a></li>
+            <li><a className="rounded-lg px-3 py-2" href="/about"> Chat2</a></li>
             <li><a className="rounded-lg px-3 py-2" href="/#"> Item 1 </a></li>
             <li>
               <div>
