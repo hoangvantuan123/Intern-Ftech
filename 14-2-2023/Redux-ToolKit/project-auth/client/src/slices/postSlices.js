@@ -1,9 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { urlAPI, urlAPIID } from "./api";
 import axios from 'axios';
-import produce from 'immer';
-import lodash from 'lodash';
-import { Omit } from 'utility-types'; // import Omit từ package
+
 
 export const fetchPosts = createAsyncThunk(
     'post/fetchPosts',
@@ -75,26 +73,6 @@ export const fetchPostById = createAsyncThunk(
 
 
 
-/* export const editPost = createAsyncThunk(
-    'post/editPost',
-    async (blogData) => {
-        const response = await fetch(`${urlAPI}/posts/${blogData.id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(blogData),
-        });
-
-        if (!response.ok) {
-            const errorResData = await response.json();
-            throw new Error(errorResData.error.message);
-        }
-
-        const result = await response.json();
-        return result;
-    }
-); */
 
 export const editPost = createAsyncThunk(
     'post/editPost',

@@ -11,6 +11,7 @@ const initialState = {
     name: "",
     email: "",
     _id: "",
+    newMessages: "",
     registerStatus: "",
     registerError: "",
     loginStatus: "",
@@ -19,6 +20,14 @@ const initialState = {
     userLoaded: false,
 
 }
+/* export const fetchUsers = createAsyncThunk(
+    'auth/fetchUsers',
+    async () => {
+        const response = await fetch(`${urlAPI}/users`);
+        const users = await response.json();
+        return users;
+    }
+) */
 export const registerUser = createAsyncThunk(
     "auth/registerUser",
     async (user, { rejectWithValue }) => {
@@ -61,6 +70,7 @@ const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
+       
         loadUser(state, action) {
             const token = state.token;
             if (token) {
@@ -97,6 +107,8 @@ const authSlice = createSlice({
         Giống như reducers, extraReducers 
     */
     extraReducers: (builder) => {
+
+       
 
         // Đối với register
         // Khi chua giai quyet
@@ -161,7 +173,7 @@ const authSlice = createSlice({
 
 })
 
-export const { loadUser, logOutUser } = authSlice.actions;
+export const { loadUser, logOutUser, addNotifications, resetNotifications } = authSlice.actions;
 export default authSlice.reducer
 
 

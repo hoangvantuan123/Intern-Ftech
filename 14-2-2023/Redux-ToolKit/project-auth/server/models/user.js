@@ -26,6 +26,14 @@ const UserSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    newMessages: {
+        type: Object,
+        default: {}
+    },
+    status: {
+        type: String,
+        default: 'online'
     }
     /* passwordConf: {
         type: String,

@@ -24,6 +24,7 @@ export default function NavBar() {
 
   /*  log out */
 
+
   const logOutClick = () => {
     dispatch(logOutUser(null))
     window.location.href = `/`;
@@ -49,7 +50,7 @@ export default function NavBar() {
               <a className="rounded-lg px-3 py-2" href="/"> Home </a>
             </li>
             <li><a className="rounded-lg px-3 py-2" href="/blog"> Blog</a></li>
-            <li><a className="rounded-lg px-3 py-2" href="/#"> Item 1 </a></li>
+            <li><a className="rounded-lg px-3 py-2" href="/chat"> Chat </a></li>
             <li><a className="rounded-lg px-3 py-2" href="/#"> Item 1 </a></li>
             <li><a className="rounded-lg px-3 py-2" href="/#"> Item 1 </a></li>
             <li>
