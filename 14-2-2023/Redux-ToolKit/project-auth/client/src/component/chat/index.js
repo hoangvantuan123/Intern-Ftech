@@ -3,23 +3,13 @@ import React from "react";
 import Sidebar from "../chat/Sidebar";
 import MessageForm from "../chat/MessageForm";
 import NavBar from "../navbar";
+import InfoSidebar from "./infoSidebar";
 
 export default function ChatBox() {
   return (
     <div>
-      {/*  <Container>
-            <Row>
-                <Col md={4}>
-                    <Sidebar />
-                </Col>
-                <Col md={8}>
-                    <MessageForm />
-                </Col>
-            </Row>
-        </Container> */}
-      <NavBar />
-      <div className="container mx-auto shadow-lg rounded-lg">
-        <div className="px-5 py-5 flex justify-between items-center bg-white border-b-2">
+      <div className=" container mx-auto  mt-5 h-full">
+    {/*     <div className="px-5 py-5 flex justify-between items-center bg-white border-b-2">
           <div className="font-semibold text-2xl">GoingChat</div>
           <div className="w-1/2">
             <div className="flex items-center sm:justify-between sm:gap-4 w-full">
@@ -58,11 +48,11 @@ export default function ChatBox() {
           <div className="h-12 w-12 p-2 bg-yellow-500 rounded-full text-white font-semibold flex items-center justify-center">
             RA
           </div>
-        </div>
-        <div className="flex flex-row justify-between bg-white">
+        </div> */}
+        <div className="flex flex-row justify-between bg-white rounded-lg shadow-lg">
           <Sidebar />
           <MessageForm />
-          
+          <InfoSidebar/>
         </div>
       </div>
     </div>

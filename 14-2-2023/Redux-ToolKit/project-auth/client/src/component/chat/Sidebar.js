@@ -28,7 +28,7 @@ function Sidebar() {
     setPrivateMemberMsg,
     currentRoom,
   } = useContext(AppContext);
-  console.log('members', members)
+  console.log("members", members);
   function joinRoom(room, isPublic = true) {
     if (!user) {
       return alert("Please login");
@@ -85,29 +85,61 @@ function Sidebar() {
   }
   return (
     <>
-      <div className="flex flex-col w-2/5 border-r-2 overflow-y-auto ">
+      <div className="flex flex-col w-2/5 border border-gray-100  overflow-y-auto ">
+        <div className="inline-flex rounded-lg  bg-gray-50 p-1 m-5">
+          <button className="w-1/2 inline-block rounded-md bg-white px-4 py-2 text-sm text-blue-500 shadow-sm focus:relative">
+            Chat
+          </button>
+          <button className="w-1/2 inline-block rounded-md px-4 py-2 text-sm text-gray-500 hover:text-gray-700 focus:relative">
+            Groups
+          </button>
+        </div>
+
         {members.map((member, index) => (
           <div
             key={member.id}
             style={{ cursor: "pointer" }}
             active={privateMemberMsg?._id == member?._id}
-
           >
             {member._id !== user?._id && (
-              <div /* className="group border border-gray-100 h-[100px] m-2 flex items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 "
-               */
+              <div
+                /* className="group border border-gray-100 h-[100px] m-2 flex items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 "
+                 */
                 onClick={() => {
                   handlePrivateMemberMsg(member);
                   setSelectedButton(index);
                 }}
-                className={`${privateMemberMsg?._id === member?._id
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-400 text-gray-700"
-                  } flex-1 rounded-md mx-2 py-2 text-center font-medium uppercase tracking-widest`}
+                className={`${
+                  privateMemberMsg?._id === member?._id
+                    ? "bg-white text-gray-700"
+                    : "  bg-gray-50  text-gray-500 "
+                } group border border-gray-100 h-[80px]  flex items-center justify-between px-4 py-2 
+                  
+                  `}
               >
-                <div className="flex  gap-2">
-                  <div className="w-full">
-                    <img src={member.picture || "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"} className="w-10 h-10 rounded-full order-1 mb-3" />
+                <div className="flex gap-2 w-full">
+                  <div className="w-1/5">
+                    <div className="relative">
+                      <span className="absolute text-green-500 right-0 bottom-0">
+                        <svg width="15" height="10">
+                          <circle
+                            cx="5"
+                            cy="5"
+                            r="5"
+                            fill="currentColor"
+                          ></circle>
+                        </svg>
+                      </span>
+                      <img
+                        src={
+                          member.picture ||
+                          "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                        }
+                        className=" object-cover h-12 w-12  rounded-xl dark:shadow-xl border-white  "
+                        
+                      />
+                    </div>
+
                     {member.status == "online" ? (
                       <i className="fas fa-circle sidebar-online-status"></i>
                     ) : (
@@ -123,8 +155,14 @@ function Sidebar() {
                 </div> */}
 
                     {/* ẩn tài khoản của mình  */}
-                    <div className="text-lg font-semibold">
-                      <div className={user && user._id === member._id ? " opacity-0 hidden !important" : " text-base font-medium"}>
+                    <div className="text-lg font-semibold items-start">
+                      <div
+                        className={
+                          user && user._id === member._id
+                            ? " opacity-0 hidden !important"
+                            : " text-base font-mediu items-start justify-start text-left"
+                        }
+                      >
                         {member.name}
                         {member.status === "offline" && " (Offline)"}
                       </div>
@@ -133,7 +171,10 @@ function Sidebar() {
 
                   <div>
                     <span className="badge rounded-pill bg-primary">
-                      {user.newMessages && user.newMessages[orderIds(member._id, user._id)] ? user.newMessages[orderIds(member._id, user._id)] : ''}
+                      {user.newMessages &&
+                      user.newMessages[orderIds(member._id, user._id)]
+                        ? user.newMessages[orderIds(member._id, user._id)]
+                        : ""}
                     </span>
                   </div>
                 </div>
@@ -142,9 +183,6 @@ function Sidebar() {
           </div>
         ))}
       </div>
-
-
-
     </>
   );
 }
