@@ -5,13 +5,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { urlAPI } from './api';
 import jwtDecode from 'jwt-decode';
-
+import appApi from "../services/appApi";
 const initialState = {
     token: localStorage.getItem('token'),
     name: "",
     email: "",
     _id: "",
-    newMessages: "",
     registerStatus: "",
     registerError: "",
     loginStatus: "",
@@ -70,7 +69,16 @@ const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-       
+        addNotifications: (state, { payload }) => {
+            if (state.newMessages[payload]) {
+                state.newMessages[payload] = state.newMessages[payload] + 1;
+            } else {
+                state.newMessages[payload] = 1;
+            }
+        },
+        resetNotifications: (state, { payload }) => {
+            delete state.newMessages[payload];
+        },
         loadUser(state, action) {
             const token = state.token;
             if (token) {
@@ -108,7 +116,7 @@ const authSlice = createSlice({
     */
     extraReducers: (builder) => {
 
-       
+
 
         // Đối với register
         // Khi chua giai quyet
@@ -168,6 +176,10 @@ const authSlice = createSlice({
                 loginError: action.payload,
             }
         });
+        // save user after signup
+        builder.addMatcher(appApi.endpoints.signupUser.matchFulfilled, (state, { payload }) => payload);
+        // save user after login
+        builder.addMatcher(appApi.endpoints.loginUser.matchFulfilled, (state, { payload }) => payload);
 
     }
 
