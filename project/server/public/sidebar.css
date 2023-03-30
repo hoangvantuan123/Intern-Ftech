@@ -1,0 +1,33 @@
+:root {
+    --topbar-color: rgb(211, 60, 60);
+    --sidebar-bg-color: rgb(216, 40, 40);
+    --sidebar-color: rgb(30, 139, 85);
+    --sidebar-link-color: rgb(117, 28, 219);
+  }
+  
+  section[data-css="sidebar"] {
+    background-color: var(--sidebar-bg-color) !important;
+    color: var(--sidebar-color);
+    border: none;
+  }
+  
+  section[data-css="sidebar"] svg {
+    fill: var(--sidebar-color) !important;
+  }
+  
+  a[data-css="sidebar-logo"] {
+    background-color: var(--sidebar-bg-color) !important;
+  }
+  
+  section[data-css="sidebar-resources"] {
+    background: var(--sidebar-bg-color) !important;
+  }
+  
+  [data-css="sidebar"] section a {
+    background: var(--sidebar-bg-color) !important;
+    color: var(--sidebar-color);
+  }
+  
+  [data-css="sidebar"] a:hover {
+    color: var(--sidebar-link-color);
+  }
