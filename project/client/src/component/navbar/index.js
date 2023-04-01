@@ -145,8 +145,8 @@ export default function NavBar() {
                     <a
                       className="rounded-lg bg-gray-100 px-5 py-2 text-sm font-medium text-gray-500 "
                       href="/login"
-                    >
-                      Sign in
+                    >             
+                      Sign in   
                     </a>
                   </div>
                   <CustomizedMenus />

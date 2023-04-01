@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts } from '../../slices/postSlices';
 import { useNavigate } from 'react-router-dom';
-import NavBar from '../navbar';
 
 function PostListPage() {
     const dispatch = useDispatch();
@@ -20,7 +19,6 @@ function PostListPage() {
     } else {
         return (
             <div>
-                <NavBar />
                 <div className='max-w-screen-xl px-4 sm:px-6 lg:px-8 m-auto mt-5'>
                     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                         {posts.map((post) => (

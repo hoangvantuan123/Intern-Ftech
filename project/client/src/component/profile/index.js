@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Tabs, Tab, Typography, Box } from '@material-ui/core';
 import PostsList from '../post/postsList';
-import NavBar from '../navbar';
+
 import {fetchImages} from '../../slices/imageSlices'
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -78,7 +78,7 @@ export default function Profile() {
     }, [dispatch])
     return (
         <div>
-            <NavBar />
+          
             <div className='h-full'>
                 <div className="h-[300px] bg-gradient-to-r from-purple-500 to-pink-500  py-3 text-white mx-auto flex  items-center justify-between p-4 max-w-screen-2xl ">
                     <Avatar

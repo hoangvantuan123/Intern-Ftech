@@ -1,6 +1,15 @@
 import React, { useState } from "react";
-export default function About() {
+import CustomizedProfile from "./styledProFile";
+import { useLocation } from "react-router-dom";
+import PostListPage from "../post";
+
+export default function Form_side_barout() {
   const [isOpen, setIsOpen] = useState(false);
+  // Lấy thông tin về đường dẫn hiện tại từ hook useLocation
+  const location = useLocation();
+
+  // Xác định form nào nên được hiển thị dựa trên đường dẫn hiện tại
+
   return (
     <div className=" text-left">
       <aside
@@ -10,24 +19,7 @@ export default function About() {
       >
         <div className="flex h-screen flex-col ">
           <div className=" ">
-            <a
-              href="#"
-              className="flex items-center gap-2 bg-white p-4 hover:bg-gray-50"
-            >
-              <img
-                alt="Man"
-                src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                className="h-10 w-10 rounded-full object-cover"
-              />
-
-              <div>
-                <p className="text-xs">
-                  <strong className="block font-medium">Eric Frusciante</strong>
-
-                  <span> eric@frusciante.com </span>
-                </p>
-              </div>
-            </a>
+            <CustomizedProfile />
           </div>
           <div className="p-4">
             <nav aria-label="Main Nav" className="flex flex-col space-y-2">
@@ -39,26 +31,25 @@ export default function About() {
                       className="flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-gray-700"
                     >
                       <svg
-                        className="h-5 w-5 opacity-75"
-                        viewBox="0 0 24 24"
-                        fill="none"
                         xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 opacity-75"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                       >
                         <path
-                          d="M5.77778 10.2222V18C5.77778 19.1046 6.67321 20 7.77778 20H12M5.77778 10.2222L11.2929 4.70711C11.6834 4.31658 12.3166 4.31658 12.7071 4.70711L17.5 9.5M5.77778 10.2222L4 12M18.2222 10.2222V18C18.2222 19.1046 17.3268 20 16.2222 20H12M18.2222 10.2222L20 12M18.2222 10.2222L17.5 9.5M17.5 9.5V6M12 20V15"
-                          stroke="black"
-                          strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                         />
                       </svg>
-
                       <span className="text-sm font-medium"> Home </span>
                     </a>
                   </li>
                   <li>
                     <a
-                      href="#"
+                      href="/blog"
                       className="flex items-center gap-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-700 px-4 py-2 "
                     >
                       <svg
@@ -81,7 +72,7 @@ export default function About() {
                   </li>
                   <li>
                     <a
-                      href="#"
+                      href="/chat"
                       className="flex items-center gap-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-700  px-4 py-2 "
                     >
                       <svg
@@ -92,7 +83,7 @@ export default function About() {
                       >
                         <path
                           fillRule="evenodd"
-                          cliRule="evenodd"
+                          clirule="evenodd"
                           d="M12 3C7.85113 3 4 5.73396 4 10C4 11.5704 4.38842 12.7289 5.08252 13.6554C5.79003 14.5998 6.87746 15.3863 8.41627 16.0908L9.2326 16.4645L8.94868 17.3162C8.54129 18.5384 7.84997 19.6611 7.15156 20.5844C9.56467 19.8263 12.7167 18.6537 14.9453 17.1679C17.1551 15.6948 18.3969 14.5353 19.0991 13.455C19.7758 12.4139 20 11.371 20 10C20 5.73396 16.1489 3 12 3ZM2 10C2 4.26604 7.14887 1 12 1C16.8511 1 22 4.26604 22 10C22 11.629 21.7242 13.0861 20.7759 14.545C19.8531 15.9647 18.3449 17.3052 16.0547 18.8321C13.0781 20.8164 8.76589 22.2232 6.29772 22.9281C5.48665 23.1597 4.84055 22.6838 4.56243 22.1881C4.28848 21.6998 4.22087 20.9454 4.74413 20.3614C5.44439 19.5798 6.21203 18.5732 6.72616 17.4871C5.40034 16.7841 4.29326 15.9376 3.48189 14.8545C2.48785 13.5277 2 11.9296 2 10Z"
                           fill="#0F0F0F"
                         />
@@ -303,21 +294,52 @@ export default function About() {
         </div>
       </aside>
       <div className=" sm:ml-64">
-        <nav className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 ml-64">
+        <nav className="fixed top-0 left-0 right-0  z-10 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 sm:ml-64">
           <div className=" py-2 lg:px-5 lg:pl-3">
             <div className="d-none lg:block mx-auto  ">
               <div className=" w-full  m-auto flex items-center justify-between gap-4 ">
+                <div className="flex gap-4 ">
+                  <nav aria-label="Breadcrumb">
+                    <ol
+                      role="list"
+                      className="flex items-center gap-4 text-sm text-gray-600"
+                    >
+                      <li>
+                        <svg
+                          className="h-5 w-5 opacity-75"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16.1795 3.26875C15.7889 2.87823 15.1558 2.87823 14.7652 3.26875L8.12078 9.91322C6.94952 11.0845 6.94916 12.9833 8.11996 14.155L14.6903 20.7304C15.0808 21.121 15.714 21.121 16.1045 20.7304C16.495 20.3399 16.495 19.7067 16.1045 19.3162L9.53246 12.7442C9.14194 12.3536 9.14194 11.7205 9.53246 11.33L16.1795 4.68297C16.57 4.29244 16.57 3.65928 16.1795 3.26875Z"
+                            fill="#0F0F0F"
+                          />
+                        </svg>
+                      </li>
+                      <li>
+                        <svg
+                          className="h-5 w-5 opacity-75"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M7.82054 20.7313C8.21107 21.1218 8.84423 21.1218 9.23476 20.7313L15.8792 14.0868C17.0505 12.9155 17.0508 11.0167 15.88 9.84497L9.3097 3.26958C8.91918 2.87905 8.28601 2.87905 7.89549 3.26958C7.50497 3.6601 7.50497 4.29327 7.89549 4.68379L14.4675 11.2558C14.8581 11.6464 14.8581 12.2795 14.4675 12.67L7.82054 19.317C7.43002 19.7076 7.43002 20.3407 7.82054 20.7313Z"
+                            fill="#0F0F0F"
+                          />
+                        </svg>
+                      </li>
+                    </ol>
+                  </nav>
+                </div>
                 <div className="relative hidden sm:block">
-                  <label className="sr-only" for="search">
-                    {" "}
-                    Search{" "}
-                  </label>
-
+                  <label className="sr-only"> Search </label>
                   <input
                     className="h-10 w-full rounded-lg border-none bg-white pl-4 pr-10 text-sm shadow-sm sm:w-56"
                     id="search"
                     type="search"
-                    placeholder="Search website..."
+                    placeholder="Search"
                   />
 
                   <button
@@ -331,116 +353,12 @@ export default function About() {
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
-                      stroke-width="2"
+                      strokeWidth="2"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      />
-                    </svg>
-                  </button>
-                </div>
-                <div className="flex gap-4 ">
-                  <div className="flex gap-4">
-                    <button
-                      type="button"
-                      className="block shrink-0 rounded-lg bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700 sm:hidden"
-                    >
-                      <span className="sr-only">Search</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                        />
-                      </svg>
-                    </button>
-
-                    <a
-                      href="#"
-                      className="block shrink-0 rounded-lg bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
-                    >
-                      <span className="sr-only">Academy</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                        <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                        />
-                      </svg>
-                    </a>
-
-                    <a
-                      href="#"
-                      className="block shrink-0 rounded-lg bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
-                    >
-                      <span className="sr-only">Notifications</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                        />
-                      </svg>
-                    </a>
-                  </div>
-
-                  <button
-                    type="button"
-                    className="group flex shrink-0 items-center rounded-lg transition"
-                  >
-                    <span className="sr-only">Menu</span>
-                    <img
-                      alt="Man"
-                      src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                      className="h-10 w-10 rounded-full object-cover"
-                    />
-
-                    <p className="ml-2 hidden text-left text-xs sm:block">
-                      <strong className="block font-medium">
-                        Eric Frusciante
-                      </strong>
-
-                      <span className="text-gray-500">
-                        {" "}
-                        eric@frusciante.com{" "}
-                      </span>
-                    </p>
-
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="ml-4 hidden h-5 w-5 text-gray-500 transition group-hover:text-gray-700 sm:block"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clip-rule="evenodd"
                       />
                     </svg>
                   </button>
@@ -755,44 +673,11 @@ export default function About() {
           </div>
         </nav>
         <section>
-          <div className="container px-4 py-16 sm:px-6 lg:px-8 m-auto">
-            <div className="grid grid-cols-1 gap-y-8  lg:items-center lg:gap-x-16  m-auto">
-              <h1 className="text-3xl font-extrabold sm:text-5xl">
-                Blog Articles
-              </h1>
-              <h1 className="text-3xl font-extrabold sm:text-5xl">
-                Blog Articles
-              </h1>
-              <h1 className="text-3xl font-extrabold sm:text-5xl">
-                Blog Articles
-              </h1>
-              <h1 className="text-3xl font-extrabold sm:text-5xl">
-                Blog Articles
-              </h1>
-              <h1 className="text-3xl font-extrabold sm:text-5xl">
-                Blog Articles
-              </h1>
-              <h1 className="text-3xl font-extrabold sm:text-5xl">
-                Blog Articles
-              </h1>
-              <h1 className="text-3xl font-extrabold sm:text-5xl">
-                Blog Articles
-              </h1>
-              <h1 className="text-3xl font-extrabold sm:text-5xl">
-                Blog Articles
-              </h1>
-              <h1 className="text-3xl font-extrabold sm:text-5xl">
-                Blog Articles
-              </h1>
-              <h1 className="text-3xl font-extrabold sm:text-5xl">
-                Blog Articles
-              </h1>
-              <h1 className="text-3xl font-extrabold sm:text-5xl">
-                Blog Articles
-              </h1>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3"></div>
-            </div>
-          </div>
+          <div className="container  pt-16  m-auto"></div>
+          {/* Hiển thị thông tin các form ở đây  */}
+          {/* <div className="container px-4 py-16 sm:px-6 lg:px-8 m-auto">
+           
+          </div> */}
         </section>
       </div>
     </div>
