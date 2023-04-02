@@ -10,7 +10,7 @@ export default function InfoSidebar() {
   const messageEndRef = useRef(null);
   return (
     <div>
-      <div className="  border h-full border-gray-100   overflow-y-auto  px-5">
+      <div className="  border border-gray-100   overflow-y-auto  px-5">
         <div>
           {user && !privateMemberMsg?._id && (
             <div className=" relative flex items-center space-x-4 border border-gray-100 alert alert-info">
@@ -19,7 +19,7 @@ export default function InfoSidebar() {
           )}
           {user && privateMemberMsg?._id && (
             <>
-              <div className="relative flex h-full p-2 border border-gray-100 items-center space-x-4 ">
+              <div className="relative flex  p-2 border border-gray-100 items-center space-x-4 ">
                 <div className="relative">
                   <span className="absolute text-green-500 right-0 bottom-0">
                     <svg width="20" height="20">

@@ -10,12 +10,14 @@ import authReducer, { loadUser } from './slices/authSlices';
 import postReduces, { setPosts } from './slices/postSlices';
 import userSlice from "./slices/userSlices";
 import imageReduces, { setImages } from './slices/imageSlices';
+import messageSlices from './slices/messageSlices';
 // reducers
 const reducer = combineReducers({
     posts: postReduces,
     images: imageReduces,
     auth: authReducer,
     user: userSlice,
+    message: messageSlices,
     [appApi.reducerPath]: appApi.reducer,
 });
 

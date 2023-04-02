@@ -15,6 +15,7 @@ const initialState = {
     registerError: "",
     loginStatus: "",
     loginError: "",
+
     // xem tai khoan nguoi dung da tai hay chua +> de trang false de ve trang thai ban dau 
     userLoaded: false,
 

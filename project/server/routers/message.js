@@ -1,18 +1,13 @@
 const express = require('express');
-const { Message } = require('../models/chat');
+const  Message  = require('../models/Message');
 
 const router = express.Router();
-
-router.post('/', async (req, res) => {
-    const { userId, text } = req.body;
-    const message = new Message({ userId, text });
-    await message.save();
-    res.json(message);
-});
-
 router.get('/', async (req, res) => {
-    const messages = await Message.find().populate('userId');
-    res.json(messages);
-});
-
+    try {
+      const messages = await Message.find();
+      res.json(messages);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
 module.exports = router;

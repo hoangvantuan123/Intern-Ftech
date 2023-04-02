@@ -17,7 +17,6 @@ import ChatBox from "./component/chat";
 import { AppContext, socket } from "./context/appContext";
 import Form_side_barout from "./component/form_side_bar/index";
 
-
 /* 
 `Wrapper` để bọc và kiểm soát việc hiển thị của `Form_side_bar`.  truyền prop `showForm` vào trong `Wrapper` 
 và sử dụng nó để kiểm soát việc hiển thị của `Form_side_bar` và cách margin bên trái cho nội dung.
@@ -26,7 +25,7 @@ function Wrapper({ children, showForm }) {
   return (
     <>
       {showForm && <Form_side_bar />}
-      <div className={`${showForm ? "sm:ml-64 " : ""}p-2`}>{children}</div>
+      <div className={`${showForm ? "sm:ml-64 " : ""}`}>{children}</div>
     </>
   );
 }
@@ -35,6 +34,7 @@ function App() {
   const auth = useSelector((state) => state.auth);
   const [rooms, setRooms] = useState([]);
   const [currentRoom, setCurrentRoom] = useState([]);
+  const [all, setall] = useState([]);
   const [members, setMembers] = useState([]);
   const [messages, setMessages] = useState([]);
   const [privateMemberMsg, setPrivateMemberMsg] = useState({});
@@ -59,6 +59,7 @@ function App() {
           setRooms,
           newMessages,
           setNewMessages,
+          
         }}
       >
         <Router>
@@ -69,10 +70,11 @@ function App() {
               path="/"
               element={
                 <Wrapper showForm={showForm}>
-                  <PostListPage />
+                  <Home />
                 </Wrapper>
               }
             />
+
             <Route
               path="/chat"
               element={

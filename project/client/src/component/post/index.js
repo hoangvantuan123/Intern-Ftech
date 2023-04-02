@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function PostListPage() {
     const dispatch = useDispatch();
     const posts = useSelector((state) => state.posts);
+    console.log('slug',posts)
     console.log('post', posts);
 
     useEffect(() => {
@@ -23,7 +24,7 @@ function PostListPage() {
                     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                         {posts.map((post) => (
                             <article
-                                key={post.id}
+                                key={post._id}
                                 className="block rounded-xl border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
                             >
                                 <a href={`/posts/${post.slug}`}>

@@ -27,8 +27,8 @@ export default function Form_side_barout() {
                 <ul className="mt-2 space-y-1">
                   <li>
                     <a
-                      href="#"
-                      className="flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-gray-700"
+                      href="/"
+                      className="flex items-center gap-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-700 px-4 py-2 "
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -673,7 +673,7 @@ export default function Form_side_barout() {
           </div>
         </nav>
         <section>
-          <div className="container  pt-16  m-auto"></div>
+          <div className="container sm:pt-[57px] m-auto"></div>
           {/* Hiển thị thông tin các form ở đây  */}
           {/* <div className="container px-4 py-16 sm:px-6 lg:px-8 m-auto">
            
