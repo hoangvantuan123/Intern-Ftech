@@ -14,6 +14,7 @@ function Sidebar({ userAccounts = new Map() }) {
   console.log("auth", user);
   const [selectedButton, setSelectedButton] = React.useState(null);
   const [message, setMessage] = useState([]);
+  const [comparearr, setComparearr] = useState([])
   const handleClick = (index) => {
     setSelectedButton(index);
   };
@@ -52,7 +53,7 @@ function Sidebar({ userAccounts = new Map() }) {
     return () => clearInterval(intervalId);
   }, []); */
 
-  console.log("[[]]", message);
+  // console.log("[[]]", message);
   const {
     socket,
     setMembers,
@@ -80,32 +81,19 @@ function Sidebar({ userAccounts = new Map() }) {
 
   // th1
   const combinedIdsth1 = members.map((item) => {
-    return `${user._id}-${item._id}`;
+    return { to: `${user._id}-${item._id}` };
   });
   console.log("combinedIdsth1", combinedIdsth1);
   //th2
-
   const combinedIdsth2 = members.map((item) => {
-    return `${item._id}-${user._id}`;
+    return { to: `${item._id}-${user._id}` };
   });
   console.log("combinedIdsth2", combinedIdsth2);
 
-  let latestMessage;
-
-  for (let i = message.length - 1; i >= 0; i--) {
-    if (
-      combinedIdsth1.includes(message[i].to) ||
-      combinedIdsth2.includes(message[i].to)
-    ) {
-      latestMessage = message[i];
-      break;
-    }
-  }
-  console.log("latestMessage123", latestMessage);
   // gộp tất cả đoạn chat có cùng nhóm chat vao với nhau
   const result = message.reduce((acc, message) => {
     /* key cho object `acc` */
-    const to = JSON.stringify(message.to);
+    const to = message.to;
     if (!acc[to]) {
       acc[to] = { to: to, _allMessages: [] };
     }
@@ -117,6 +105,37 @@ function Sidebar({ userAccounts = new Map() }) {
   /* console.log(JSON.stringify(result, null, 2));
    */
   console.log("result", result);
+
+  const resultArray = Object.values(result);
+  console.log('arry', resultArray);
+
+  const toCompareresult = resultArray.map(item => {
+    // Thêm thuộc tính recentMessage vào đối tượng được trả về của hàm map()
+    return {
+      to: item.to,
+      recentMessage: item._recentMessage
+    };
+  });
+  console.log("toCompareresult", toCompareresult)
+  const toCompareArr1 = combinedIdsth1.map(item => item.to);
+  console.log('toCompareArr1', toCompareArr1)
+  const toCompareArr2 = combinedIdsth2.map(item => item.to);
+  console.log('toCompareArr2', toCompareArr2)
+
+  useEffect(() => {
+    const tempSet = new Set();
+    for (let i = 0; i < toCompareArr1.length; i++) {
+      for (let j = 0; j < toCompareArr2.length; j++) {
+        if (toCompareArr1[i] || toCompareArr2[j] === toCompareresult.includes(toCompareArr1[i])) {
+          tempSet.add(toCompareArr1[i]);
+          console.log('toCompare123', toCompareArr1[i]);
+        }
+      }
+    }
+    setComparearr(Array.from(tempSet));
+  }, [toCompareArr1, toCompareArr2, toCompareresult]);
+
+  console.log("comparearr: ", comparearr);
   useEffect(() => {
     // gửi yêu cầu lấy tất cả tin nhắn đến server khi component được render
     socket.emit("get-all-messages");
@@ -135,38 +154,9 @@ function Sidebar({ userAccounts = new Map() }) {
   useEffect(() => {
     console.log("All messages:", messages);
   }, [messages]);
-
-  // Cachs 1
-  /* function myFunction() {
-    const to = lastData ? lastData.to : null;
-    let result = { firstString: null, secondString: null };
-    if (to) {
-      const splittedStrings = to.split("-");
-      result.firstString = splittedStrings[0];
-      result.secondString = splittedStrings[1];
-    } else {
-      console.log("to is null or undefined");
-    }
-    return result;
-  }
-  const { firstString, secondString } = myFunction(lastData);
-  console.log(firstString); // "6428238c18208f96bc3f667b"
-  console.log(secondString); // "642817e6cdd11b2b2ebf5baa" */
-
   console.log("members", members);
   console.log("privateMemberMsg", privateMemberMsg);
   console.log("messagesmessages", messages);
-
-  /* 
-  let latestTime = latestMessage[0];
-  for (let i = 1; i < latestMessage.length; i++) {
-    // so sánh giá trị thời gian hiện tại với giá trị lớn nhất đã tìm thấy
-    if (latestMessage[i] > latestTime) {
-      latestTime = latestMessage[i]; // cập nhật giá trị lớn nhất
-    }
-  }
-
-  console.log(`Giờ gần nhất: ${latestTime}`); */
 
   function joinRoom(room, isPublic = true) {
     if (!user) {
@@ -195,9 +185,39 @@ function Sidebar({ userAccounts = new Map() }) {
     }
   }, []);
 
+  /* socket.off("new-user").on("new-user", (payload) => {
+    // tạo chuỗi mới bằng cách nối chuỗi _id của payload với auth._id
+    let authId = auth._id;
+    const updatedPayload = payload.map(obj => ({
+      ...obj, // giữ nguyên tất cả thuộc tính khác của đối tượng
+      newId_to_1: obj._id + "-" + authId, // thêm thuộc tính newId mới
+      newId_to_2: authId + "-" + obj._id // thêm thuộc tính newId mới
+    }));
+
+    // sử dụng updatedPayload để cập nhật state
+    setMembers(updatedPayload);
+  }); */
   socket.off("new-user").on("new-user", (payload) => {
-    setMembers(payload);
+    const authId = auth._id;
+    let newId_to_1 = "";
+    let newId_to_2 = "";
+    const updatedPayload = payload.map(obj => {
+      newId_to_1 = obj._id + "-" + authId;
+      newId_to_2 = authId + "-" + obj._id;
+      const tempArray = toCompareresult.filter(item => item.to === newId_to_1 || item.to === newId_to_2);
+      return {
+        ...obj,
+        newId_to_1,
+        newId_to_2,
+        updatedArray: tempArray.concat(),
+      };
+    });
+    setMembers(updatedPayload);
   });
+
+
+
+
 
   function getRooms() {
     fetch("http://localhost:5000/rooms")
@@ -247,11 +267,10 @@ function Sidebar({ userAccounts = new Map() }) {
                   handlePrivateMemberMsg(member);
                   setSelectedButton(index);
                 }}
-                className={`${
-                  privateMemberMsg?._id === member?._id
-                    ? "bg-white text-gray-700"
-                    : "  bg-gray-50  text-gray-500 "
-                } group border border-gray-100 h-[80px]  flex items-center justify-between px-4 py-2 
+                className={`${privateMemberMsg?._id === member?._id
+                  ? "bg-white text-gray-700"
+                  : "  bg-gray-50  text-gray-500 "
+                  } group border border-gray-100 h-[80px]  flex items-center justify-between px-4 py-2 
                   
                   `}
               >
@@ -301,11 +320,18 @@ function Sidebar({ userAccounts = new Map() }) {
                         }
                       >
                         {member.name}
-                        {privateMemberMsg._id + "-" + member._id === result && (
-                          <div>
-                            {result._recentMessage.content}
-                          </div>
-                        )}
+                        {/* {comparearr.includes(user._id + '-' + member._id) && (
+                          <>
+                            <h1> online hien</h1>
+                          </>
+                        )} */}
+                        {
+                          (user._id + '-' + member._id) === resultArray.to && (
+                            <>
+                              <h1> online hien</h1>
+                            </>
+                          )
+                        }
                         {member.status === "offline" && " (Offline)"}
                       </div>
                     </div>
@@ -313,7 +339,7 @@ function Sidebar({ userAccounts = new Map() }) {
                   <div>
                     <span className="badge rounded-pill bg-primary">
                       {user.newMessages &&
-                      user.newMessages[orderIds(member._id, user._id)]
+                        user.newMessages[orderIds(member._id, user._id)]
                         ? user.newMessages[orderIds(member._id, user._id)]
                         : ""}
                     </span>

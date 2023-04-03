@@ -11,6 +11,7 @@ const messageRouter = require("./routers/message");
 const Message = require("./models/Message");
 const { User } = require("./models/user");
 const rooms = ["general", "tech", "finance", "crypto"];
+const session = require('express-session');
 ///
 const app = express();
 /// Tạo socket.io để kết nối real-time
@@ -19,7 +20,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-
+app.use(session({ secret: 'server' }));
 app.use("/api/register", register);
 app.use("/api/login", login);
 app.use("/admin", admin);
