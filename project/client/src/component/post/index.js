@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts } from '../../slices/postSlices';
 import { useNavigate } from 'react-router-dom';
+import io from "socket.io-client";
+
+import './app.css'
 
 function PostListPage() {
     const dispatch = useDispatch();
     const posts = useSelector((state) => state.posts);
-    console.log('slug',posts)
+    console.log('slug', posts)
     console.log('post', posts);
 
     useEffect(() => {
@@ -61,7 +64,27 @@ function PostListPage() {
                         ))}
                     </div>
                 </div>
-            </div>
+                <div className='p-5'></div>
+
+                <div className="max-w-md w-full mx-auto">
+                    <div className="bg-white rounded-lg overflow-hidden shadow-md">
+                        <div className="p-4 flex  items-center">
+                            <img className="h-full w-10 rounded-full object-cover mr-2" src="https://picsum.photos/50" alt="" />
+                            <div className="px-2 overflow-hidden text-left">
+                                <div>
+                                    <h2 className="text-base font-medium text-gray-800">John Doe</h2>
+                                </div>
+                                <div className="text-sm text-gray-600 an">
+                                    <p classsName="an ">Hello! How can I help you today? This is a sample chat message that has been truncated to show only 2 lines. a sample chat message that has been truncated to show only 2 lines.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className='p-5'></div>
+
+            </div >
         );
     }
 }

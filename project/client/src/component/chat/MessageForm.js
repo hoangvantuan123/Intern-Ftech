@@ -10,14 +10,8 @@ function MessageForm() {
     useContext(AppContext);
   const messageEndRef = useRef(null);
   const [showForm, setShowForm] = useState(false);
-  console.log('messages',messages)
-  //lay tin nhan cuoi cung  trong doan chat
-  const lastData =
-    messages?.[messages.length - 1]?.["messagesByDate"]?.[
-      messages[messages.length - 1]["messagesByDate"].length - 1
-    ];
-  console.log("lastDatamesss", lastData);
-  
+  // console.log('messages',messages)
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);

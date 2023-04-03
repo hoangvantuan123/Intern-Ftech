@@ -59,18 +59,32 @@ function sortRoomMessagesByDate(messages) {
   return messages.sort(function (a, b) {
     let date1 = a._id.split("/");
     let date2 = b._id.split("/");
-
     date1 = date1[2] + date1[0] + date1[1];
     date2 = date2[2] + date2[0] + date2[1];
-
     return date1 < date2 ? -1 : 1;
   });
 }
+
 io.on("connection", (socket) => {
+  // Lắng nghe sự kiện "newData"
+  socket.on("newData", async (newData) => {
+    const data = new Message({ content: newData });
+    await data.save(); // Lưu trữ dữ liệu vào kho MongoDB
+    io.emit("newData", newData); // Phát sóng dữ liệu mới tới toàn bộ client kết nối
+  });
+
+  // Gửi toàn bộ dữ liệu chat cho client đầu tiên khi kết nối thành công
+  socket.on("initial-data", async () => {
+    // Lấy toàn bộ dữ liệu chat trong DB
+    const allMessages = await Message.find({}).sort({ createdAt: 1 });
+    // Gửi dữ liệu chat
+    socket.emit("all-data", allMessages);
+  });
   socket.on("new-user", async () => {
     const members = await User.find();
     io.emit("new-user", members);
   });
+
 
   socket.on("join-room", async (newRoom, previousRoom) => {
     socket.join(newRoom);
@@ -95,8 +109,8 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("notifications", room);
   });
 
- 
-  app.delete("/logout", async (req, res) => {
+
+ /*  app.delete("/logout", async (req, res) => {
     try {
       const { _id, newMessages } = req.body;
       const user = await User.findById(_id);
@@ -110,7 +124,7 @@ io.on("connection", (socket) => {
       console.log(e);
       res.status(400).send();
     }
-  });
+  }); */
 });
 app.get("/rooms", (req, res) => {
   res.json(rooms);

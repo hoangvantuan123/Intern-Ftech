@@ -34,7 +34,6 @@ const store = configureStore({
 
 const persistedStore = persistStore(store);
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 

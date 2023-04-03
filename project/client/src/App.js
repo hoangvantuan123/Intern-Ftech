@@ -39,6 +39,7 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [privateMemberMsg, setPrivateMemberMsg] = useState({});
   const [newMessages, setNewMessages] = useState({});
+
   // const user = useSelector((state) => state.user);
   //console.log('Appjs', auth)
   const showForm = true;
@@ -59,7 +60,7 @@ function App() {
           setRooms,
           newMessages,
           setNewMessages,
-          
+
         }}
       >
         <Router>
