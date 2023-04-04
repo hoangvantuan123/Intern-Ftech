@@ -67,20 +67,12 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/chat" element={<ChatBox />} />
             <Route
               path="/"
               element={
                 <Wrapper showForm={showForm}>
                   <Home />
-                </Wrapper>
-              }
-            />
-
-            <Route
-              path="/chat"
-              element={
-                <Wrapper showForm={showForm}>
-                  <ChatBox />
                 </Wrapper>
               }
             />

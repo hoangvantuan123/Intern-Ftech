@@ -60,7 +60,7 @@ function MessageForm() {
   }
   return (
     <>
-      <div className="w-full  border border-gray-100 flex flex-col justify-between p-5">
+      <div className="w-full  h-screen border border-gray-100 flex flex-col justify-between p-5">
         <div>
           {user && !privateMemberMsg?._id && (
             <div className=" relative flex items-center justify-center rounded-lg h-full p-2 space-x-4 border border-gray-100 alert alert-info">
@@ -82,7 +82,6 @@ function MessageForm() {
                     <strong className="block font-medium">
                       {privateMemberMsg.name}
                     </strong>
-
                     <span className="text-gray-500">
                       {" "}
                       {privateMemberMsg.email}
@@ -95,13 +94,13 @@ function MessageForm() {
         </div>
         <div
           id="messages"
-          className="flex  h-[500px] flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
+          className="flex  h-full flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
         >
           {!user && <div className="">Please login</div>}
           {user &&
             messages.map(({ _id: date, messagesByDate }, idx) => (
               <div key={idx}>
-                <p className="">{date}</p>
+                <p className="text-gray-600 text-xs italic">{date}</p>
                 {messagesByDate?.map(
                   ({ content, time, from: sender }, msgIdx) => (
                     <div
@@ -144,7 +143,7 @@ function MessageForm() {
                           </div>
                           {showForm && (
                             <form>
-                              <p className="">{time}</p>
+                              <p className="text-gray-600 text-xs italic">{time}</p>
                             </form>
                           )}
                         </div>

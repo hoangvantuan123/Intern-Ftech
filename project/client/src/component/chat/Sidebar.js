@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppContext } from "../../context/appContext";
 //import { addNotifications, resetNotifications } from "../../slices/userSlices";
 import { addNotifications, resetNotifications } from "../../slices/authSlices";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import "./Sidebar.css";
 import axios from "axios";
+import moment from "moment";
 
 function Sidebar() {
-
   // Doan code khi dùng AI để tối ưu hóa
   //có the xem đoạn code cũ khi chưa đuọc tối ưu lắm ở file Mau_code_Sidebar_js.md
   const user = useSelector((state) => state.auth);
@@ -17,7 +18,6 @@ function Sidebar() {
   const [message, setMessage] = useState([]);
   const [updatedPayload, setUpdatedPayload] = useState([]);
   const [payload, setPayload] = useState([]);
-
   const {
     socket,
     setMembers,
@@ -63,15 +63,28 @@ function Sidebar() {
   }, {});
 
   const resultArray = Object.values(result);
+
   const toCompareresult = resultArray.map((item) => {
+    // Kiem tra xem tin nhan gui tu bao gio va dem thoi gian tu luc gui den hien tai
+    const sentDateTimeString = `${item._recentMessage.date} ${item._recentMessage.time}`;
+    const sentDateTime = moment(sentDateTimeString, "MM/DD/YYYY HH:mm");
+    let formattedDuration = "";
+    if (sentDateTime.isValid()) {
+      const diffInMs = moment().diff(sentDateTime);
+      const duration = moment.duration(diffInMs);
+      formattedDuration = duration.humanize();
+    }
+
     return {
       to: item.to,
       recentMessage: item._recentMessage.content,
       date: item._recentMessage.date,
       time: item._recentMessage.time,
+      sentDateTime: sentDateTime,
+      formattedDuration: formattedDuration,
     };
   });
-
+  console.log("toCompareresult", toCompareresult);
   useEffect(() => {
     socket.emit("get-all-messages");
 
@@ -160,6 +173,11 @@ function Sidebar() {
   return (
     <>
       <div className="flex flex-col w-2/5 border border-gray-100  overflow-y-auto ">
+        <div className="relative flex items-center justify-center text-center px-4 py-2 gap-4 cursor-pointer">
+          <a href="/">
+            <h2 className=" text-xl">Messages</h2>
+          </a>
+        </div>
         <div className="inline-flex rounded-lg  bg-gray-50 p-1 m-5">
           <button className="w-1/2 inline-block rounded-md bg-white px-4 py-2 text-sm text-blue-500 shadow-sm focus:relative">
             Chat
@@ -182,10 +200,11 @@ function Sidebar() {
                   handlePrivateMemberMsg(member);
                   setSelectedButton(index);
                 }}
-                className={`${privateMemberMsg?._id === member?._id
-                  ? "bg-white text-gray-700"
-                  : "  bg-gray-50  text-gray-500 "
-                  } group border border-gray-100 h-[80px]  flex items-center justify-between px-4 py-2 
+                className={`${
+                  privateMemberMsg?._id === member?._id
+                    ? " bg-gray-50 text-gray-700"
+                    : "  bg-white text-gray-500 "
+                } group  border-gray-100 h-[80px]  flex items-center justify-between px-4 py-2 
                   
                   `}
               >
@@ -232,8 +251,26 @@ function Sidebar() {
                             : "   justify-start overflow-hidden text-left"
                         }
                       >
-                        <div>
-                          <h2 className="text-base font-medium text-gray-800">{member.name}</h2>
+                        <div className="flex justify-between">
+                          <h2 className="text-base font-medium text-gray-800">
+                            {member.name}
+                          </h2>
+                          <span className="text-gray-600 text-xs italic">
+                            {member.updatedArray.map((item) => {
+                              return (
+                                <>
+                                  {/* {item.time} */}{" "}
+                                  {/* <p>
+                                    Sent at:{" "}
+                                    {item.sentDateTime.format(
+                                      "MMM D, YYYY [at] h:mm a"
+                                    )}
+                                  </p> */}
+                                  <p>{item.formattedDuration}</p>{" "}
+                                </>
+                              );
+                            })}
+                          </span>
                         </div>
                         {/* {comparearr.includes(user._id + '-' + member._id) && (
                           <>
@@ -241,26 +278,21 @@ function Sidebar() {
                           </>
                         )} */}
 
-                        <span class="text-sm text-gray-600 an">
-                          {
-                            member.updatedArray.map((item) => {
-                              return <>
-                                <span>
-                                  {item.recentMessage}
-                                </span>
-                              </>
-                            })
-                          }
-                        </span>
+                        <p class="line-clamp-1 text-sm text-gray-500 an">
+                          {member.updatedArray.map((item) => {
+                            return <>{item.recentMessage}</>;
+                          })}
+                        </p>
 
                         {/*  {member.status === "offline" && " (Offline)"} */}
                       </div>
                     </div>
                   </div>
                   <div>
+                    {/* Chua hieẻn thị đc tin nhắnn mới  */}
                     <span className="badge rounded-pill bg-primary">
                       {user.newMessages &&
-                        user.newMessages[orderIds(member._id, user._id)]
+                      user.newMessages[orderIds(member._id, user._id)]
                         ? user.newMessages[orderIds(member._id, user._id)]
                         : ""}
                     </span>

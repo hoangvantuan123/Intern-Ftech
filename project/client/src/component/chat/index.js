@@ -23,7 +23,7 @@ export default function ChatBox() {
     <div>
       {auth._id ? (
         <>
-          <div className=" container mx-auto p-3   h-full">
+          <div className="fixed top-0 left-0 w-full h-full min-h-screen-viewport">
             <div className="flex flex-row justify-between bg-white ">
               <Sidebar />
               <MessageForm />
