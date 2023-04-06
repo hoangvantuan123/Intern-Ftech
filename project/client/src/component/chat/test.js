@@ -1,11 +1,31 @@
-<div
-    className="px-5 py-4   flex items-center   cursor-pointer border-l-4 border-l-transparent hover:bg-slate-100">
-    <img src="https://images.unsplash.com/photo-1628157588553-5eeea00af15c?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHVzZXJzfGVufDB8MnwwfHw%3D&auto=format&fit=crop&w=500"
-        className="h-12 w-12 border-2 border-white rounded-full" alt="" />
-    <div className="ml-4">
-        <p x-text="user.name" className="text-md font-semibold text-slate-600 m-0 p-0">Yaroslav Zubkp
-        </p>
-        <p className="text-xs text-slate-400 -mt-0.5 font-semibold" x-text="user.email">is is long ipsum
-            avaliable..dfsdfsdfdfsdfsdf.</p>
-    </div>
+<div className="relative">
+    <label className="sr-only" for="search"> Search </label>
+
+    <input
+        className="h-10 w-full rounded-full border-none bg-white pl-4 pr-10 text-sm shadow-sm sm:w-56"
+        id="search"
+        type="search"
+        placeholder="Search website..."
+    />
+
+    <button
+        type="button"
+        className="absolute top-1/2 right-1 -translate-y-1/2 rounded-full bg-gray-50 p-2 text-gray-600 transition hover:text-gray-700"
+    >
+        <span className="sr-only">Search</span>
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
+        >
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+        </svg>
+    </button>
 </div>

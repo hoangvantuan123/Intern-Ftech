@@ -27,7 +27,6 @@ export default function ChatBox() {
             <div className="flex flex-row justify-between bg-white ">
               <Sidebar />
               <MessageForm />
-              <InfoSidebar />
             </div>
           </div>
         </>

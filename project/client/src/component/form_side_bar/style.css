@@ -1,0 +1,21 @@
+/* Định dạng kiểu thanh cuộn */
+::-webkit-scrollbar {
+    width: 6px;
+    /* chiều rộng*/
+}
+
+/* Định dạng màu sắc thanh cuộn */
+::-webkit-scrollbar-thumb {
+    background-color: #4F4F4F;
+    /* màu sắc */
+}
+
+/* Ẩn thanh cuộn */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Định dạng cho phần thumb của thanh cuộn */
+.hide-scrollbar::-webkit-scrollbar-thumb {
+    display: none;
+}

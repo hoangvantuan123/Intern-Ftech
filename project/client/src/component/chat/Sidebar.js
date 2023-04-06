@@ -8,6 +8,7 @@ import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import "./Sidebar.css";
 import axios from "axios";
 import moment from "moment";
+import BasicTabs from "./tabs";
 
 function Sidebar() {
   // Doan code khi dùng AI để tối ưu hóa
@@ -18,6 +19,7 @@ function Sidebar() {
   const [message, setMessage] = useState([]);
   const [updatedPayload, setUpdatedPayload] = useState([]);
   const [payload, setPayload] = useState([]);
+  
   const {
     socket,
     setMembers,
@@ -172,20 +174,21 @@ function Sidebar() {
   });
   return (
     <>
-      <div className="flex flex-col w-2/5 border border-gray-100  overflow-y-auto ">
+      <div className="flex flex-col w-2/5 border border-gray-100   hide-scrollbar overflow-y-scroll ">
         <div className="relative flex items-center justify-center text-center px-4 py-2 gap-4 cursor-pointer">
           <a href="/">
             <h2 className=" text-xl">Messages</h2>
           </a>
         </div>
-        <div className="inline-flex rounded-lg  bg-gray-50 p-1 m-5">
+        {/* <div className="inline-flex rounded-lg  bg-gray-50 p-1 m-5">
           <button className="w-1/2 inline-block rounded-md bg-white px-4 py-2 text-sm text-blue-500 shadow-sm focus:relative">
             Chat
           </button>
           <button className="w-1/2 inline-block rounded-md px-4 py-2 text-sm text-gray-500 hover:text-gray-700 focus:relative">
             Groups
           </button>
-        </div>
+        </div> */}
+
         {members.map((member, index) => (
           <div
             key={member.id}
@@ -200,11 +203,10 @@ function Sidebar() {
                   handlePrivateMemberMsg(member);
                   setSelectedButton(index);
                 }}
-                className={`${
-                  privateMemberMsg?._id === member?._id
-                    ? " bg-gray-50 text-gray-700"
-                    : "  bg-white text-gray-500 "
-                } group  border-gray-100 h-[80px]  flex items-center justify-between px-4 py-2 
+                className={`${privateMemberMsg?._id === member?._id
+                  ? " bg-gray-50 text-gray-700"
+                  : "  bg-white text-gray-500 "
+                  } group  border-gray-100 h-[80px]  flex items-center justify-between px-4 py-2 
                   
                   `}
               >
@@ -240,8 +242,8 @@ function Sidebar() {
                     {/* <div className="text-lg font-semibold">
                   {member.name}
                   {member._id === user?._id}
-                  {member.status == "offline" && " (Offline)"}
                 </div> */}
+                    {member.status == "offline" && " (Offline)"}
                     {/* ẩn tài khoản của mình  */}
                     <div className=" ">
                       <div
@@ -272,19 +274,15 @@ function Sidebar() {
                             })}
                           </span>
                         </div>
-                        {/* {comparearr.includes(user._id + '-' + member._id) && (
-                          <>
-                            <h1> online hien</h1>
-                          </>
-                        )} */}
-
+                      
                         <p class="line-clamp-1 text-sm text-gray-500 an">
                           {member.updatedArray.map((item) => {
                             return <>{item.recentMessage}</>;
                           })}
                         </p>
-
-                        {/*  {member.status === "offline" && " (Offline)"} */}
+                        <p>
+                          {member.status === "offline" && " (Offline)"}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -292,7 +290,7 @@ function Sidebar() {
                     {/* Chua hieẻn thị đc tin nhắnn mới  */}
                     <span className="badge rounded-pill bg-primary">
                       {user.newMessages &&
-                      user.newMessages[orderIds(member._id, user._id)]
+                        user.newMessages[orderIds(member._id, user._id)]
                         ? user.newMessages[orderIds(member._id, user._id)]
                         : ""}
                     </span>

@@ -8,6 +8,8 @@ const userRouter = require("./routers/users");
 const postRouter = require("./routers/post");
 const imageRouter = require("./routers/imagePost");
 const messageRouter = require("./routers/message");
+const accountRouter = require("./routers/accountStatus");
+const logoutRouter = require("./routers/logout")
 const Message = require("./models/Message");
 const { User } = require("./models/user");
 const rooms = ["general", "tech", "finance", "crypto"];
@@ -28,6 +30,8 @@ app.use("/api/users", userRouter);
 app.use("/api/posts", postRouter);
 app.use("/api/images", imageRouter);
 app.use("/api/messages", messageRouter);
+app.use("/api/accountStatus", accountRouter);
+app.use("/api/logout", logoutRouter);
 
 mongoose.set("strictQuery", true);
 const MONGO_URL = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/data";
@@ -110,21 +114,20 @@ io.on("connection", (socket) => {
   });
 
 
- /*  app.delete("/logout", async (req, res) => {
+  // Xử lý khi server nhận được yêu cầu đăng xuất
+  socket.on("logout", async (data) => {
     try {
-      const { _id, newMessages } = req.body;
+      const { _id, newMessages } = data;
       const user = await User.findById(_id);
       user.status = "offline";
       user.newMessages = newMessages;
       await user.save();
       const members = await User.find();
-      socket.broadcast.emit("new-user", members);
-      res.status(200).send();
+      io.emit("user-logged-out", { userId: _id, members: members });
     } catch (e) {
       console.log(e);
-      res.status(400).send();
     }
-  }); */
+  });
 });
 app.get("/rooms", (req, res) => {
   res.json(rooms);
