@@ -49,7 +49,6 @@ enum Direction1 {
 
 
 /// Objects 
-
 type User = {
     id: number,
     name: string
