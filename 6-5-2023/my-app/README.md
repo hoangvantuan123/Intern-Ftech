@@ -1,34 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
 First, run the development server:
 
 ```bash
+npx create-next-app@latest
+##########################
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
 ```
+# **Giới thiệu về Next.js**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Next.js là một framework mã nguồn mở được sử dụng để xây dựng các ứng dụng web bằng React. Nó cung cấp cho người dùng một số tính năng hữu ích giúp tối ưu quá trình phát triển và tạo ra các ứng dụng web nhanh, bảo mật và có khả năng mở rộng.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## **Tính năng của Next.js**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Next.js cung cấp nhiều tính năng hữu ích, bao gồm:
 
-## Learn More
+- **Server-side rendering**: Cho phép trang web được render trên server trước khi được gửi đến trình duyệt của người dùng. Điều này giúp cải thiện thời gian tải trang ban đầu và tăng tính tương tác của trang.
+- **Automatic code splitting**: Giúp phân chia mã tự động, giúp tăng tốc độ tải trang và giảm bộ nhớ được sử dụng.
+- **Static site generation**: Cho phép tạo trang web tĩnh với hiệu suất cao và độ tin cậy cao.
+- **API routes**: Cho phép xây dựng các API độc lập, giúp phát triển ứng dụng web dễ dàng hơn.
+- **TypeScript support**: Hỗ trợ TypeScript giúp giảm lỗi cú pháp và kiểm soát kiểu tốt hơn.
 
-To learn more about Next.js, take a look at the following resources:
+## **Lợi ích của Next.js**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Các lợi ích của Next.js bao gồm:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Hiệu suất**: Next.js cho phép tối ưu hiệu suất của trang web bằng cách render trên server, phân chia mã tự động và tạo trang tĩnh.
+- **Bảo mật**: Với việc render trên server, các thông tin nhạy cảm không được gửi đến trình duyệt của người dùng, giúp bảo vệ dữ liệu.
+- **Khả năng mở rộng**: Next.js cho phép phát triển các ứng dụng web với khả năng mở rộng tốt, giúp tăng cường khả năng chịu tải và tối ưu hoá hiệu suất.
 
-## Deploy on Vercel
+## **Kết luận**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Next.js là một framework mạnh mẽ và hữu ích cho việc xây dựng các ứng dụng web với React. Với những tính năng và lợi ích của nó, Next.js là một lựa chọn tuyệt vời cho các nhà phát triển muốn tối ưu hoá hiệu suất và bảo mật cho các ứng dụng web của mình.
